@@ -140,7 +140,7 @@
 
         100% {
             -webkit-transform: translateY(-100px) translateX(-100px);
-            transform: translateY(-250px) translateX(-320px);
+            transform: translateY(-200px) translateX(-300px);
         }
     }
 
@@ -152,7 +152,7 @@
 
         100% {
             -webkit-transform: translateY(-100px) translateX(-100px);
-            transform: translateY(-250px) translateX(-320px);
+            transform: translateY(-200px) translateX(-300px);
         }
     }
 
@@ -392,7 +392,7 @@
     border-bottom: 2px solid #F9F9F9;
     outline: 0;
     font-size: 1.3rem;
-    color: #F9F9F9;
+    color: #fff;
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
@@ -414,14 +414,14 @@
     display: block;
     transition: 0.2s;
     font-size: 1rem;
-    color: #F9F9F9;
+    color: white;
 }
 
 .form__field:focus {
     padding-bottom: 6px;
     font-weight: 700;
     border-width: 3px;
-    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image: none;
     border-image-slice: 1;
 }
 
@@ -431,7 +431,7 @@
         display: block;
         transition: 0.2s;
         font-size: 1rem;
-        color: #11998e;
+        color: #EEEEEE;
         font-weight: 700;
     }
 /* reset input */
@@ -441,3 +441,71 @@
 /* demo */
 
  /*Text box ends*/
+
+ /*Arrow css*/
+
+.arrow {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    margin: 20px 0 0 20px;
+    width: 35px;
+    height: 35px;
+    right: 20%;
+    align-self: flex-end;
+    border: solid 6px white;
+    border-radius: 100%;
+    z-index: 1;
+    transition: all 0.2s linear;
+}
+
+    .arrow:before, .arrow:after {
+        content: "";
+        position: absolute;
+        width: 35%;
+        height: 10%;
+        top: 41%;
+        left: 55%;
+        background: #23d5ab;
+        z-index: 2;
+        transform: translate(-50%, -50%) rotate(45deg);
+        transition: all 0.2s linear;
+    }
+
+    .arrow:after {
+        z-index: 3;
+        top: 59%;
+        left: 55%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .arrow:hover {
+        border: solid 8px #23d5ab;
+    }
+
+        .arrow:hover:after, .arrow:hover:before {
+            background: #23d5ab;
+        }
+
+    .arrow:active {
+        border: solid 8px white;
+    }
+
+        .arrow:active:after, .arrow:active:before {
+            background: white;
+        }
+
+@media screen and (max-width: 1000px) {
+    .arrow {
+        width: 25px;
+        height: 25px;
+
+    }
+}
+@media screen and (max-width: 600px) {
+    .arrow {
+        width: 20px;
+        height: 20px;
+    }
+}
+    /*Arrow css end*/
