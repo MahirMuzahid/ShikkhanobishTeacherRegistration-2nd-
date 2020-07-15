@@ -1,24 +1,49 @@
 ﻿@page "/"
-
+@using System.Timers
+<div class="gradientBAckground">
     <div class="@StartAnim1stBlock">
-        <a>This is a text</a><br>       
+        Welcome To Shikkhanobish Teacher Registration<br>
     </div>
     <button @onclick="@endFirstBlock">Go</button>
+</div>
+
 
 @code{
     string StartAnim1stBlock, EndtAnim1stBlock;
+    Timer timer;
 
     protected override async Task OnInitializedAsync()
     {
-        StartAnim1stBlock = "scale-in-center";
+        StartAnim1stBlock = "text-focus-in";
         StateHasChanged();
+        timer = new Timer();
+        timer.Interval = 2000;
+        timer.Elapsed += counter;
+        timer.Start();
 
     }
 
-    public void endFirstBlock ()
+    public void endFirstBlock()
     {
-        StartAnim1stBlock = "scale-out-center";
+        StartAnim1stBlock = "slide-out-top";
         StateHasChanged();
+    }
+
+    private async void counter(object sender, ElapsedEventArgs e)
+    {
+        StartAnim1stBlock = "slide-tl";
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+        timer.Stop();
+    }
+    public void Dispose()
+    {
+        if (timer != null)
+        {
+            timer.Dispose();
+        }
     }
 
 }
