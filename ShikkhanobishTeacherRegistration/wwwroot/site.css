@@ -13,6 +13,10 @@
     left: 0;
 }
 
+.basicDiv {
+    width: 50%;
+}
+
 @keyframes gradient {
     0% {
         background-position: 0% 50%;
@@ -387,8 +391,8 @@
 
 .form__field {
     font-family: inherit;
-    width: 100%;
     border: 0;
+    width: 200%;
     border-bottom: 2px solid #F9F9F9;
     outline: 0;
     font-size: 1.3rem;
@@ -419,7 +423,7 @@
 
 .form__field:focus {
     padding-bottom: 6px;
-    font-weight: 700;
+    font-weight: 500;
     border-width: 3px;
     border-image: none;
     border-image-slice: 1;
@@ -430,7 +434,7 @@
         top: 0;
         display: block;
         transition: 0.2s;
-        font-size: 1rem;
+        font-size: .8rem;
         color: #EEEEEE;
         font-weight: 700;
     }
@@ -439,6 +443,27 @@
     box-shadow: none;
 }
 /* demo */
+
+
+@media screen and (max-width: 1000px) {
+    .form__field:placeholder-shown ~ .form__label {
+        font-size: 1rem;
+    }
+    .form__label {
+
+        font-size: 1rem;
+
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .form__field:placeholder-shown ~ .form__label {
+        font-size: .8rem;
+    }
+    .form__label {
+        font-size: .8rem;
+    }
+}
 
  /*Text box ends*/
 
