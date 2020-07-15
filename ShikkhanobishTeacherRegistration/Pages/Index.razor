@@ -1,0 +1,24 @@
+﻿@page "/"
+
+    <div class="@StartAnim1stBlock">
+        <a>This is a text</a><br>       
+    </div>
+    <button @onclick="@endFirstBlock">Go</button>
+
+@code{
+    string StartAnim1stBlock, EndtAnim1stBlock;
+
+    protected override async Task OnInitializedAsync()
+    {
+        StartAnim1stBlock = "scale-in-center";
+        StateHasChanged();
+
+    }
+
+    public void endFirstBlock ()
+    {
+        StartAnim1stBlock = "scale-out-center";
+        StateHasChanged();
+    }
+
+}
