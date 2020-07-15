@@ -1,16 +1,28 @@
 ﻿@page "/"
 @using System.Timers
-<div class="gradientBAckground">
-    <div class="@StartAnim1stBlock">
-        Welcome To Shikkhanobish Teacher Registration<br>
+    <div class="gradientBAckground">
+        <div style="flex:auto">
+            <div class="@StartAnim1stBlock">
+                <img class="@picClass" src="WhiteLogo.png" style="opacity: @op;" />
+                Welcome To Shikkhanobish Teacher Registration<br>
+                <div class="form__group field" style="opacity: @op;" >
+                    <input class="form__field" placeholder="Name" name="name" id='name' required />
+                    <label for="name" class="form__label">Name</label>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        
     </div>
-    <button @onclick="@endFirstBlock">Go</button>
-</div>
 
 
 @code{
-    string StartAnim1stBlock, EndtAnim1stBlock;
-    Timer timer;
+    string StartAnim1stBlock, EndtAnim1stBlock,picClass;
+    Timer timer,picTimer;
+    string picscr;
+    int op;
 
     protected override async Task OnInitializedAsync()
     {
@@ -20,6 +32,9 @@
         timer.Interval = 2000;
         timer.Elapsed += counter;
         timer.Start();
+        op = 0;
+        picClass = "controlSize";
+
 
     }
 
@@ -37,6 +52,12 @@
             StateHasChanged();
         });
         timer.Stop();
+
+        picTimer = new Timer();
+        picTimer.Interval = 1000;
+        picTimer.Elapsed += picCounter;
+        picTimer.Start();
+
     }
     public void Dispose()
     {
@@ -44,6 +65,19 @@
         {
             timer.Dispose();
         }
+        if (picTimer != null)
+        {
+            picTimer.Dispose();
+        }
+    }
+    private async void picCounter(object sender, ElapsedEventArgs e)
+    {
+        picClass = "fade-in-fwd";
+        op = 1;
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
     }
 
 }
