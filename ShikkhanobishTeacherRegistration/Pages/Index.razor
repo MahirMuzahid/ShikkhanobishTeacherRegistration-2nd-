@@ -1,44 +1,45 @@
 ﻿@page "/"
 @using System.Timers
     <div class="gradientBAckground">
-
         <div style="flex:auto">
             <div class="@StartAnim1stBlock">
                 <img class="@picClass" src="WhiteLogo.png" style="opacity: @op;" />
                 Welcome To Shikkhanobish Teacher Registration<br>
-                <div class="basicDiv" >
-                    <div class="form__group field" style="opacity: @op;">
-                    <input class="form__field" placeholder="Name" name="name" id='name' required />
-                    <label for="name" class="form__label" style="color:#E7E7E7">Name</label>
+                <div class="basicDiv @animClass" style="opacity: @op;">
+                    <div class="form__group field">
+                        <input class="form__field" placeholder="Name" name="name" id='name' required />
+                        <label for="name" class="form__label" style="color:#E7E7E7">Name</label>
+                    </div>
+                    <div class="form__group field">
+                        <input class="form__field" placeholder="Age" name="name" id='name' required />
+                        <label for="name" class="form__label" style="color:#E7E7E7">Age</label>
+                    </div>
+                    <div class="form__group field">
+                        <input class="form__field" placeholder="Institution" name="name" id='name' required />
+                        <label for="name" class="form__label" style="color:#E7E7E7">Institution</label>
+                    </div>
+                    <div class="form__group field">
+                        <input class="form__field" placeholder="Phonenumber" name="name" id='name' required />
+                        <label for="name" class="form__label" style="color:#E7E7E7">Phonenumber</label>
+                    </div>
                 </div>
-                <div class="form__group field" style="opacity: @op;">
-                    <input class="form__field" placeholder="Age" name="name" id='name' required />
-                    <label for="name" class="form__label"style="color:#E7E7E7">Age</label>
-                </div>
-                <div class="form__group field" style="opacity: @op;">
-                    <input class="form__field" placeholder="Educational Institution" name="name" id='name' required />
-                    <label for="name" class="form__label"style="color:#E7E7E7">Educational Institution</label>
-                </div>
-                <div class="form__group field" style="opacity: @op;">
-                    <input class="form__field" placeholder="Phonenumber" name="name" id='name' required />
-                    <label for="name" class="form__label"style="color:#E7E7E7">Phonenumber</label>
-                </div>
-                </div>
-                
-                <span class="arrow" style="opacity: @op;"></span>
+                <span class="arrow" @onclick="@BlockGo" style="opacity: @op;"></span>
             </div>
+
         </div>
-        
+
 
 
     </div>
 
 
 @code{
-    string StartAnim1stBlock, EndtAnim1stBlock,picClass;
-    Timer timer,picTimer;
-    string picscr;
+    string StartAnim1stBlock, EndtAnim1stBlock,picClass, animClass;
+    Timer timer,picTimer, blockTime;
+    string picscr ;
     int op;
+    string fadeInText = "fade-inText-fwd", fadeOutText = "fade-out-bck";
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,6 +50,7 @@
         timer.Elapsed += counter;
         timer.Start();
         op = 0;
+        animClass = "";
         picClass = "controlSize";
 
 
@@ -96,4 +98,23 @@
         });
     }
 
+    public void BlockGo()
+    {
+        animClass = fadeOutText;
+        {
+            StateHasChanged();
+        };
+        blockTime = new Timer();
+        blockTime.Interval = 1000;
+        blockTime.Elapsed += blockCounter;
+        blockTime.Start();
+    }
+    private async void blockCounter(object sender, ElapsedEventArgs e)
+    {
+        animClass = fadeInText;
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
 }
