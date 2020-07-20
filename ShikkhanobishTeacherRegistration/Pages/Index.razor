@@ -38,7 +38,7 @@
     Timer timer,picTimer, blockTime;
     string picscr ;
     int op;
-    string fadeInText = "fade-inText-fwd", fadeOutText = "fade-out-bck";
+    string fadeInText = "fade-inText-fwdRB", fadeOutText = "fade-out-bckRB";
 
 
     protected override async Task OnInitializedAsync()
@@ -105,7 +105,7 @@
             StateHasChanged();
         };
         blockTime = new Timer();
-        blockTime.Interval = 1000;
+        blockTime.Interval = 650;
         blockTime.Elapsed += blockCounter;
         blockTime.Start();
     }
@@ -116,5 +116,6 @@
         {
             StateHasChanged();
         });
+        blockTime.Stop();
     }
 }

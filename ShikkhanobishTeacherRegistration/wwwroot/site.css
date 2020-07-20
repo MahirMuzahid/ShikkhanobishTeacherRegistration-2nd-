@@ -159,66 +159,52 @@
             transform: translateY(-200px) translateX(-300px);
         }
     }
+@media screen and (max-width: 1500px) {
 
+    .text-focus-in {
+        font-size: 30px;
+    }
+
+
+    .slide-tl {
+        font-size: 30px;
+    }
+
+    @-webkit-keyframes slide-tl {
+        0% {
+            -webkit-transform: translateY(0) translateX(0);
+            transform: translateY(0) translateX(0);
+        }
+
+        100% {
+            -webkit-transform: translateY(-100px) translateX(-100px);
+            transform: translateX(-200px) translateY(-100px);
+        }
+    }
+
+    @keyframes slide-tl {
+        0% {
+            -webkit-transform: translateY(0) translateX(0);
+            transform: translateY(0) translateX(0);
+        }
+
+        100% {
+            -webkit-transform: translateY(-100px) translateX(-100px);
+            transform: translateX(-200px) translateY(-100px);
+        }
+    }
+}
     @media screen and (max-width: 1000px) {
 
+
+
         .text-focus-in {
-            -webkit-animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-            animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
             font-size: 27px;
-            display: flex;
-            color: white;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 100vh;
-        }
-
-        @-webkit-keyframes text-focus-in {
-            0% {
-                -webkit-filter: blur(12px);
-                letter-spacing: -.1em;
-                filter: blur(12px);
-                opacity: 0;
-            }
-
-            100% {
-                -webkit-filter: blur(0px);
-                filter: blur(0px);
-                opacity: 1;
-            }
-        }
-
-        @keyframes text-focus-in {
-            0% {
-                -webkit-filter: blur(12px);
-                filter: blur(12px);
-                letter-spacing: -.1em;
-                opacity: 0;
-            }
-
-            100% {
-                -webkit-filter: blur(0px);
-                filter: blur(0px);
-                opacity: 1;
-            }
         }
 
 
         .slide-tl {
-            -webkit-animation: slide-tl 0.5s ease-out both;
-            animation: slide-tl 0.5s ease-out both;
             font-size: 27px;
-            display: flex;
-            color: white;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 100vh;
         }
 
         @-webkit-keyframes slide-tl {
@@ -250,62 +236,12 @@
     @media screen and (max-width: 600px) {
 
         .text-focus-in {
-            -webkit-animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-            animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
             font-size: 20px;
-            display: flex;
-            color: white;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 100vh;
-        }
-
-        @-webkit-keyframes text-focus-in {
-            0% {
-                -webkit-filter: blur(12px);
-                letter-spacing: -.1em;
-                filter: blur(12px);
-                opacity: 0;
-            }
-
-            100% {
-                -webkit-filter: blur(0px);
-                filter: blur(0px);
-                opacity: 1;
-            }
-        }
-
-        @keyframes text-focus-in {
-            0% {
-                -webkit-filter: blur(12px);
-                filter: blur(12px);
-                letter-spacing: -.1em;
-                opacity: 0;
-            }
-
-            100% {
-                -webkit-filter: blur(0px);
-                filter: blur(0px);
-                opacity: 1;
-            }
         }
 
 
         .slide-tl {
-            -webkit-animation: slide-tl 0.5s ease-out both;
-            animation: slide-tl 0.5s ease-out both;
             font-size: 20px;
-            display: flex;
-            color: white;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 100vh;
         }
 
         @-webkit-keyframes slide-tl {
@@ -333,6 +269,16 @@
         }
     }
 
+@media screen and (max-height: 1500px) {
+    .text-focus-in {
+        min-height: 120vh;
+    }
+
+
+    .slide-tl {
+        min-height: 120vh;
+    }
+}
 
     /*Welcome animation css ends*/
 
@@ -379,233 +325,234 @@
 
     /*First block animation css end*/
 
-/*First block animation css go start*/
-.fade-out-bck {
-    -webkit-animation: fade-out-bck 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: fade-out-bck 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-@-webkit-keyframes fade-out-bck {
-    0% {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        opacity: 1;
+    /*First block animation css go start*/
+    .fade-out-bckRB {
+        -webkit-animation: fade-out-bckRB 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: fade-out-bckRB 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
 
-    100% {
-        -webkit-transform: translateZ(-200px);
-        transform: translateZ(-80px);
-        opacity: 0;
-    }
-}
+    @-webkit-keyframes fade-out-bckRB {
+        0% {
+            -webkit-transform: translateZ(0);
+            transform: translateY(0);
+            opacity: 1;
+        }
 
-@keyframes fade-out-bck {
-    0% {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        opacity: 1;
-    }
-
-    100% {
-        -webkit-transform: translateZ(-80px);
-        transform: translateZ(-80px);
-        opacity: 0;
-    }
-}
-
-
-/*First block animation css go ends*/
-
-
-/*block animation css come start*/
-.fade-inText-fwd {
-    -webkit-animation: fade-in-fwd 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-    animation: fade-in-fwd 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-}
-
-@-webkit-keyframes fade-inText-fwd {
-    0% {
-        -webkit-transform: translateZ(-80px);
-        transform: translateZ(-80px);
-        opacity: 0;
+        100% {
+            -webkit-transform: translateZ(-200px);
+            transform: translateY(-40px);
+            opacity: 0;
+        }
     }
 
-    100% {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        opacity: 1;
+    @keyframes fade-out-bckRB {
+        0% {
+            -webkit-transform: translateZ(0);
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translateZ(-80px);
+            transform: translateY(-40px);
+            opacity: 0;
+        }
     }
+
+
+    /*First block animation css go ends*/
+
+
+    /*block animation css come start*/
+.fade-inText-fwdRB {
+    -webkit-animation: fade-inText-fwdRB 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation: fade-inText-fwdRB 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
-@keyframes fade-inText-fwd {
-    0% {
-        -webkit-transform: translateZ(-80px);
-        transform: translateZ(-80px);
-        opacity: 0;
+    @-webkit-keyframes fade-inText-fwdRB {
+        0% {
+            -webkit-transform: translateZ(-80px);
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateZ(0);
+            transform: translateY(0px);
+            opacity: 1;
+        }
     }
 
-    100% {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        opacity: 1;
+    @keyframes fade-inText-fwdRB {
+        0% {
+            -webkit-transform: translateZ(-80px);
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateZ(0);
+            transform: translateY(0px);
+            opacity: 1;
+        }
     }
-}
 
 
 
-/*block animation css come ends*/
+    /*block animation css come ends*/
 
 
 
     /*Text Bosx*/
-.form__group {
-    position: relative;
-    padding: 15px 0 0;
-    margin-top: 10px;
-    width: 50%;
-}
-
-.form__field {
-    font-family: inherit;
-    border: 0;
-    width: 200%;
-    border-bottom: 2px solid #F9F9F9;
-    outline: 0;
-    font-size: 1.3rem;
-    color: #fff;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-}
-
-    .form__field::placeholder {
-        color: transparent;
+    .form__group {
+        position: relative;
+        padding: 15px 0 0;
+        margin-top: 10px;
+        width: 50%;
     }
 
-    .form__field:placeholder-shown ~ .form__label {
+    .form__field {
+        font-family: inherit;
+        border: 0;
+        width: 200%;
+        border-bottom: 2px solid #F9F9F9;
+        outline: 0;
         font-size: 1.3rem;
-        cursor: text;
-        top: 20px;
+        color: #fff;
+        padding: 7px 0;
+        background: transparent;
+        transition: border-color 0.2s;
     }
 
-.form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: white;
-}
+        .form__field::placeholder {
+            color: transparent;
+        }
 
-.form__field:focus {
-    padding-bottom: 6px;
-    font-weight: 500;
-    border-width: 3px;
-    border-image: none;
-    border-image-slice: 1;
-}
+        .form__field:placeholder-shown ~ .form__label {
+            font-size: 1.3rem;
+            cursor: text;
+            top: 20px;
+        }
 
-    .form__field:focus ~ .form__label {
+    .form__label {
         position: absolute;
         top: 0;
         display: block;
         transition: 0.2s;
-        font-size: .8rem;
-        color: #EEEEEE;
-        font-weight: 700;
-    }
-/* reset input */
-.form__field:required, .form__field:invalid {
-    box-shadow: none;
-}
-/* demo */
-
-
-@media screen and (max-width: 1000px) {
-    .form__field:placeholder-shown ~ .form__label {
         font-size: 1rem;
+        color: white;
     }
-    .form__label {
 
-        font-size: 1rem;
-
+    .form__field:focus {
+        padding-bottom: 6px;
+        font-weight: 500;
+        border-width: 3px;
+        border-image: none;
+        border-image-slice: 1;
     }
-}
 
-@media screen and (max-width: 600px) {
-    .form__field:placeholder-shown ~ .form__label {
-        font-size: .8rem;
+        .form__field:focus ~ .form__label {
+            position: absolute;
+            top: 0;
+            display: block;
+            transition: 0.2s;
+            font-size: .8rem;
+            color: #EEEEEE;
+            font-weight: 700;
+        }
+    /* reset input */
+    .form__field:required, .form__field:invalid {
+        box-shadow: none;
     }
-    .form__label {
-        font-size: .8rem;
+    /* demo */
+
+
+    @media screen and (max-width: 1000px) {
+        .form__field:placeholder-shown ~ .form__label {
+            font-size: 1rem;
+        }
+
+        .form__label {
+            font-size: 1rem;
+        }
     }
-}
 
- /*Text box ends*/
+    @media screen and (max-width: 600px) {
+        .form__field:placeholder-shown ~ .form__label {
+            font-size: .8rem;
+        }
 
- /*Arrow css*/
+        .form__label {
+            font-size: .8rem;
+        }
+    }
 
-.arrow {
-    cursor: pointer;
-    position: relative;
-    display: block;
-    margin: 20px 0 0 20px;
-    width: 35px;
-    height: 35px;
-    right: 20%;
-    align-self: flex-end;
-    border: solid 6px white;
-    border-radius: 100%;
-    z-index: 1;
-    transition: all 0.2s linear;
-}
+    /*Text box ends*/
 
-    .arrow:before, .arrow:after {
-        content: "";
-        position: absolute;
-        width: 35%;
-        height: 10%;
-        top: 41%;
-        left: 55%;
-        background: #23d5ab;
-        z-index: 2;
-        transform: translate(-50%, -50%) rotate(45deg);
+    /*Arrow css*/
+
+    .arrow {
+        cursor: pointer;
+        position: relative;
+        display: block;
+        margin: 20px 0 0 20px;
+        width: 35px;
+        height: 35px;
+        right: 20%;
+        align-self: flex-end;
+        border: solid 6px white;
+        border-radius: 100%;
+        z-index: 1;
         transition: all 0.2s linear;
     }
 
-    .arrow:after {
-        z-index: 3;
-        top: 59%;
-        left: 55%;
-        transform: translate(-50%, -50%) rotate(-45deg);
-    }
-
-    .arrow:hover {
-        border: solid 8px #23d5ab;
-    }
-
-        .arrow:hover:after, .arrow:hover:before {
+        .arrow:before, .arrow:after {
+            content: "";
+            position: absolute;
+            width: 35%;
+            height: 10%;
+            top: 41%;
+            left: 55%;
             background: #23d5ab;
+            z-index: 2;
+            transform: translate(-50%, -50%) rotate(45deg);
+            transition: all 0.2s linear;
         }
 
-    .arrow:active {
-        border: solid 8px white;
-    }
-
-        .arrow:active:after, .arrow:active:before {
-            background: white;
+        .arrow:after {
+            z-index: 3;
+            top: 59%;
+            left: 55%;
+            transform: translate(-50%, -50%) rotate(-45deg);
         }
 
-@media screen and (max-width: 1000px) {
-    .arrow {
-        width: 25px;
-        height: 25px;
+        .arrow:hover {
+            border: solid 8px #23d5ab;
+        }
 
+            .arrow:hover:after, .arrow:hover:before {
+                background: #23d5ab;
+            }
+
+        .arrow:active {
+            border: solid 8px white;
+        }
+
+            .arrow:active:after, .arrow:active:before {
+                background: white;
+            }
+
+    @media screen and (max-width: 1000px) {
+        .arrow {
+            width: 25px;
+            height: 25px;
+        }
     }
-}
-@media screen and (max-width: 600px) {
-    .arrow {
-        width: 20px;
-        height: 20px;
+
+    @media screen and (max-width: 600px) {
+        .arrow {
+            width: 20px;
+            height: 20px;
+        }
     }
-}
     /*Arrow css end*/
