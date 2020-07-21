@@ -5,25 +5,36 @@
             <div class="@StartAnim1stBlock">
                 <img class="@picClass" src="WhiteLogo.png" style="opacity: @op;" />
                 Welcome To Shikkhanobish Teacher Registration<br>
-                <div class="basicDiv @animClass" style="opacity: @op;">
+                <div class="basicDiv @animClass" style="opacity: @op; display: @block1and2">
                     <div class="form__group field">
-                        <input class="form__field" placeholder="Name" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:#E7E7E7">Name</label>
+                        <input class="form__field" @bind="in1" placeholder="Name" name="name" id='name' required />
+                        <label for="name" class="form__label" style="color:#E7E7E7">@inL1</label>
                     </div>
                     <div class="form__group field">
-                        <input class="form__field" placeholder="Age" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:#E7E7E7">Age</label>
+                        <input class="form__field" @bind="in2" placeholder="Age" name="name" id='name' required />
+                        <label for="name" class="form__label" style="color:#E7E7E7">@inL2</label>
                     </div>
                     <div class="form__group field">
-                        <input class="form__field" placeholder="Institution" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:#E7E7E7">Institution</label>
+                        <input class="form__field" @bind="in3" placeholder="Institution" name="name" id='name' required />
+                        <label for="name" class="form__label" style="color:#E7E7E7">@inL3</label>
                     </div>
                     <div class="form__group field">
-                        <input class="form__field" placeholder="Phonenumber" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:#E7E7E7">Phonenumber</label>
+                        <input class="form__field" @bind="in4" placeholder="Phonenumber" name="name" id='name' required>
+                        <label for="name" class="form__label" style="color:#E7E7E7">@inL4</label>
                     </div>
+                    
+                    <a class="ErrorText">@ErrorText</a>
                 </div>
-                <span class="arrow" @onclick="@BlockGo" style="opacity: @op;"></span>
+                <div class="basicDiv @animClass" style="display: @block3">
+                    sadasdasd
+                    <a class="ErrorText">@ErrorText</a>
+                </div>
+                @clickCounter @checkedBlock
+                <div>
+                    <span class="arrow" @onclick="@BlockGoLB" style="opacity: @leftArrow; margin:10px; display: inline-block; transform: rotateY(180deg); "></span>
+                    <span class="arrow" @onclick="@BlockGo" style="opacity: @op; display:  inline-block ;  margin:10px;"></span>
+                </div>
+
             </div>
 
         </div>
@@ -36,11 +47,15 @@
 @code{
     string StartAnim1stBlock, EndtAnim1stBlock,picClass, animClass;
     Timer timer,picTimer, blockTime;
-    string picscr ;
-    int op;
-    string fadeInText = "fade-inText-fwdRB", fadeOutText = "fade-out-bckRB";
+    string picscr , block1and2, block3;
+    int op, leftArrow,checkedBlock;
+    string inL1, inL2, inL3, inL4;
+    string in1, in2, in3, in4;
+    string Name = "", Age = "", Ins = "", Pn = "", mail = "", username = "", pass = "", cpass = "", ErrorText = "";
+    string fadeInTextRB = "fade-inText-fwdRB", fadeOutTextRB = "fade-out-bckRB";
+    string fadeInTextLB = "fade-inText-fwdLB", fadeOutTextLB = "fade-out-bckLB";
 
-
+    int clickCounter;
     protected override async Task OnInitializedAsync()
     {
         StartAnim1stBlock = "text-focus-in";
@@ -50,10 +65,21 @@
         timer.Elapsed += counter;
         timer.Start();
         op = 0;
+        block3 = "none";
+        block1and2 = "block";
+        clickCounter = 0;
         animClass = "";
+        leftArrow = 0;
         picClass = "controlSize";
-
-
+        inL1 = "Name";
+        inL2 = "Age";
+        inL3 = "Institution";
+        inL4 = "Phonenumber";
+        in1 = "";
+        in2 = "";
+        in3 = "";
+        in4 = "";
+        checkedBlock = -1;
     }
 
     public void endFirstBlock()
@@ -98,24 +124,200 @@
         });
     }
 
+
+
+
     public void BlockGo()
     {
-        animClass = fadeOutText;
+        if (checkInfo() == 0)
+        {
+            SaveInfo();
+
+
+
+            clickCounter++;
+            if (clickCounter > checkedBlock)
+            {
+                checkedBlock++;
+            }
+            leftArrow = 100;
+            animClass = fadeOutTextRB;
+            {
+                StateHasChanged();
+            };
+            blockTime = new Timer();
+            blockTime.Interval = 650;
+
+            blockTime.Elapsed += blockCounter;
+            blockTime.Start();
+
+
+        }
+    }
+    public void BlockGoLB()
+    {
+        clickCounter--;
+        animClass = fadeOutTextLB;
         {
             StateHasChanged();
         };
         blockTime = new Timer();
         blockTime.Interval = 650;
-        blockTime.Elapsed += blockCounter;
+        blockTime.Elapsed += blockCounterLB;
         blockTime.Start();
+
+        if (clickCounter <= 0)
+        {
+            leftArrow = 0;
+        }
+
     }
+
     private async void blockCounter(object sender, ElapsedEventArgs e)
     {
-        animClass = fadeInText;
+        if(clickCounter == 2)
+        {
+            chnageBlock();
+        }
+        else
+        {
+            changeInputPlaceholderAndPlaceInfo();
+            animClass = fadeInTextRB;
+
+        }
+        animClass = fadeInTextRB;
+        if (checkedBlock >= clickCounter)
+        {
+            SetInfo();
+        }
+        else
+        {
+            in1 = "";
+            in2 = "";
+            in3 = "";
+            in4 = "";
+        }
+
+        blockTime.Stop();
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+    private async void blockCounterLB(object sender, ElapsedEventArgs e)
+    {
+        if (clickCounter == 0 || clickCounter == 1)
+        {
+            changeInputPlaceholderAndPlaceInfo();
+
+        }
+        if(clickCounter == 1)
+        {
+            chnageBlock();
+        }
+        animClass = fadeInTextLB;
+        SetInfo();
         await InvokeAsync(() =>
         {
             StateHasChanged();
         });
         blockTime.Stop();
+
+
     }
+
+
+
+
+
+    public void changeInputPlaceholderAndPlaceInfo()
+    {
+        if (clickCounter == 0)
+        {
+            inL1 = "Name";
+            inL2 = "Age";
+            inL3 = "Institution";
+            inL4 = "Phonenumber";
+        }
+        if (clickCounter == 1)
+        {
+            inL1 = "E-Mail";
+            inL2 = "Username";
+            inL3 = "Password";
+            inL4 = "Confirm Password";
+        }
+    }
+
+    public int checkInfo()
+    {
+        int chk = 0;
+        if (clickCounter == 0 || clickCounter == 1)
+        {
+            if (in1 == "" || in2 == "" || in3 == "" || in4 == "")
+            {
+                chk = 1;
+            }
+        }
+        if(chk == 1)
+        {
+            ErrorText = "Empty Box is not allowed";
+        }
+        else
+        {
+            ErrorText = "";
+        }
+
+        return chk;
+    }
+
+    public void chnageBlock ()
+    {
+        if (clickCounter == 0 || clickCounter == 1)
+        {
+            block3 =  "none";
+            block1and2 = "block";
+        }
+        if (clickCounter == 2)
+        {
+            block3 = "block";
+            block1and2 = "none";
+        }
+    }
+
+    public void SaveInfo()
+    {
+        if(clickCounter == 0)
+        {
+            Name = in1;
+            Age = in2;
+            Ins = in3;
+            Pn = in4;
+        }
+        if (clickCounter == 1)
+        {
+            mail = in1;
+            username = in2;
+            pass = in3;
+            cpass = in4;
+
+        }
+    }
+    public void SetInfo()
+    {
+        if (clickCounter == 0)
+        {
+            in1 = Name;
+            in2 = Age;
+            in3 = Ins;
+            in4 = Pn;
+        }
+        if (clickCounter == 1)
+        {
+            in1 = mail;
+            in2 = username;
+            in3 = pass;
+            in4 = cpass;
+        }
+    }
+
 }

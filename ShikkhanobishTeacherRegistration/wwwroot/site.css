@@ -4,19 +4,24 @@
 
 .gradientBAckground {
     background: linear-gradient(-45deg, #ee7752, #7A4FFF, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
+    background-size: 300% 300%;
     animation: gradient 15s ease infinite;
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 }
 
 .basicDiv {
     width: 50%;
+    
 }
 
+.ErrorText {
+    font-size: 20px ;
+    color: #FF3A3A;
+}
 @keyframes gradient {
     0% {
         background-position: 0% 50%;
@@ -164,7 +169,9 @@
     .text-focus-in {
         font-size: 30px;
     }
-
+    .ErrorText {
+        font-size: 18px;
+    }
 
     .slide-tl {
         font-size: 30px;
@@ -197,7 +204,9 @@
     @media screen and (max-width: 1000px) {
 
 
-
+        .ErrorText {
+            font-size: 16px;
+        }
         .text-focus-in {
             font-size: 27px;
         }
@@ -234,7 +243,9 @@
 
 
     @media screen and (max-width: 600px) {
-
+        .ErrorText {
+            font-size: 13px;
+        }
         .text-focus-in {
             font-size: 20px;
         }
@@ -400,6 +411,80 @@
 
 
     /*block animation css come ends*/
+.fade-out-bckLB {
+    -webkit-animation: fade-out-bckLB 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: fade-out-bckLB 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes fade-out-bckLB {
+    0% {
+        -webkit-transform: translateZ(0);
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: translateZ(-200px);
+        transform: translateY(40px);
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out-bckLB {
+    0% {
+        -webkit-transform: translateZ(0);
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: translateZ(-80px);
+        transform: translateY(40px);
+        opacity: 0;
+    }
+}
+
+
+/*First block animation css go ends*/
+
+
+/*block animation css go start*/
+.fade-inText-fwdLB {
+    -webkit-animation: fade-inText-fwdLB 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation: fade-inText-fwdLB 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+@-webkit-keyframes fade-inText-fwdLB {
+    0% {
+        -webkit-transform: translateZ(-80px);
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateZ(0);
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-inText-fwdLB {
+    0% {
+        -webkit-transform: translateZ(-80px);
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateZ(0);
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+
+
+/*block animation css go ends*/
 
 
 
@@ -499,7 +584,6 @@
         width: 35px;
         height: 35px;
         right: 20%;
-        align-self: flex-end;
         border: solid 6px white;
         border-radius: 100%;
         z-index: 1;
@@ -527,7 +611,7 @@
         }
 
         .arrow:hover {
-            border: solid 8px #23d5ab;
+            border: solid 8px #EEEEEE;
         }
 
             .arrow:hover:after, .arrow:hover:before {
@@ -546,6 +630,7 @@
         .arrow {
             width: 25px;
             height: 25px;
+            border: solid 4px white;
         }
     }
 
@@ -553,6 +638,7 @@
         .arrow {
             width: 20px;
             height: 20px;
+            border: solid 3px white;
         }
     }
     /*Arrow css end*/
