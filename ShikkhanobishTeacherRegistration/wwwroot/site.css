@@ -1,11 +1,52 @@
 
 
-
-
+.semi-transparent-button {
+    display: block;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 8px;
+    display: inline-block;
+    margin: 3px;
+    width: 65%;
+    max-width: 200px;
+    background: #fff; /* fallback color for old browsers */
+    background: rgba(34, 34, 34, 0.40);
+    border-radius: 6px;
+    border-bottom-color: blue;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.3s ease-out;
+}
+    .semi-transparent-button:hover {
+        background: rgba(34, 34, 34, 0.60);
+    }
+.semi-transparent-buttonClicked {
+    display: block;
+    display: inline-block;
+    margin: 3px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 8px;
+    width: 90%;
+    max-width: 200px;
+    background: #fff; /* fallback color for old browsers */
+    background: rgba(39, 174, 96, 0.80);
+    border-radius: 6px;
+    font-size: 18px;
+    border-bottom-color: blue;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.3s ease-out;
+}
 .gradientBAckground {
-    background: linear-gradient(-45deg, #ee7752, #7A4FFF, #23a6d5, #23d5ab);
-    background-size: 300% 300%;
-    animation: gradient 15s ease infinite;
+    
+    background-image: url('geometry2.png');
+    animation: gradient 60s ease infinite;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -246,12 +287,23 @@
         .ErrorText {
             font-size: 13px;
         }
-        .text-focus-in {
+        .semi-transparent-button {
+            width: 65%;
+            font-size: 10px;
+        }
+        .semi-transparent-buttonClicked {
+            width: 80%;
+            font-size: 11px;
+            margin: 6px;
+        }
+            .text-focus-in {
             font-size: 20px;
         }
+        .gradientBAckground {
 
-
-        .slide-tl {
+            animation: gradient 20s infinite;
+        }
+            .slide-tl {
             font-size: 20px;
         }
 
@@ -498,12 +550,12 @@
 
     .form__field {
         font-family: inherit;
-        border: 0;
+        border: 1px;
         width: 200%;
-        border-bottom: 2px solid #F9F9F9;
-        outline: 0;
+        border-bottom: 2px solid #808080;
+        outline: 1px;
         font-size: 1.3rem;
-        color: #fff;
+        color: rgba(0,0,0,0.45);
         padding: 7px 0;
         background: transparent;
         transition: border-color 0.2s;
@@ -584,7 +636,7 @@
         width: 35px;
         height: 35px;
         right: 20%;
-        border: solid 6px white;
+        border: solid 6px #646464;
         border-radius: 100%;
         z-index: 1;
         transition: all 0.2s linear;
@@ -597,7 +649,7 @@
             height: 10%;
             top: 41%;
             left: 55%;
-            background: #23d5ab;
+            background: #109aa8; /*Inside Arrow*/
             z-index: 2;
             transform: translate(-50%, -50%) rotate(45deg);
             transition: all 0.2s linear;
@@ -615,7 +667,7 @@
         }
 
             .arrow:hover:after, .arrow:hover:before {
-                background: #23d5ab;
+                background:  #672cc7;
             }
 
         .arrow:active {
@@ -630,7 +682,7 @@
         .arrow {
             width: 25px;
             height: 25px;
-            border: solid 4px white;
+            border: solid 4px #646464;
         }
     }
 
@@ -638,7 +690,7 @@
         .arrow {
             width: 20px;
             height: 20px;
-            border: solid 3px white;
+            border: solid 3px #646464;
         }
     }
     /*Arrow css end*/

@@ -3,33 +3,44 @@
     <div class="gradientBAckground">
         <div style="flex:auto">
             <div class="@StartAnim1stBlock">
-                <img class="@picClass" src="WhiteLogo.png" style="opacity: @op;" />
-                Welcome To Shikkhanobish Teacher Registration<br>
-                <div class="basicDiv @animClass" style="opacity: @op; display: @block1and2">
+                <img class="@picClass" src="Logo.png" style="opacity: @op;" />
+                <a style="color: black">Welcome To Shikkhanobish Teacher Registration</a><br>
+                <div class="basicDiv @animClass" style="opacity: @op; display: @block1and2;">
                     <div class="form__group field">
                         <input class="form__field" @bind="in1" placeholder="Name" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:#E7E7E7">@inL1</label>
+                        <label for="name" class="form__label" style="color:black">@inL1</label>
                     </div>
                     <div class="form__group field">
                         <input class="form__field" @bind="in2" placeholder="Age" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:#E7E7E7">@inL2</label>
+                        <label for="name" class="form__label" style="color:black">@inL2</label>
                     </div>
                     <div class="form__group field">
                         <input class="form__field" @bind="in3" placeholder="Institution" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:#E7E7E7">@inL3</label>
+                        <label for="name" class="form__label" style="color:black">@inL3</label>
                     </div>
                     <div class="form__group field">
                         <input class="form__field" @bind="in4" placeholder="Phonenumber" name="name" id='name' required>
-                        <label for="name" class="form__label" style="color:#E7E7E7">@inL4</label>
+                        <label for="name" class="form__label" style="color:black">@inL4</label>
                     </div>
-                    
+
                     <a class="ErrorText">@ErrorText</a>
+
                 </div>
                 <div class="basicDiv @animClass" style="display: @block3">
-                    sadasdasd
+                    <a style="color: black;"><h5>Select class that you want to teach</h5></a><br>
+                    <a class="@buttonClassSix" @onclick="@buttonClikedSix">Class 6 - Class 8</a>
+                    <a class="@buttonClassNine" @onclick="@buttonClikedNine">Class 9 - Class 10</a>
+                    <a class="@buttonClassEleven" @onclick="@buttonClikedEleven">Class 11 - Class 12</a>
                     <a class="ErrorText">@ErrorText</a>
                 </div>
-                @clickCounter @checkedBlock
+                <div class="basicDiv @animClass" style="display: @block4">
+                    <a style="color: black;"><h5>Select group that you want to teach in Class 9</h5></a><br>
+                    <a class="@buttonS" @onclick="@buttonClikedS">Science</a>
+                    <a class="@buttonC" @onclick="@buttonClikeC">Commerce</a>
+                    <a class="@buttonA" @onclick="@buttonCliked">Arts</a>
+                    <a class="ErrorText">@ErrorText</a>
+                </div>
+                @clickCounter @checkedBlock;
                 <div>
                     <span class="arrow" @onclick="@BlockGoLB" style="opacity: @leftArrow; margin:10px; display: inline-block; transform: rotateY(180deg); "></span>
                     <span class="arrow" @onclick="@BlockGo" style="opacity: @op; display:  inline-block ;  margin:10px;"></span>
@@ -47,14 +58,17 @@
 @code{
     string StartAnim1stBlock, EndtAnim1stBlock,picClass, animClass;
     Timer timer,picTimer, blockTime;
-    string picscr , block1and2, block3;
+    string picscr , block1and2, block3,block4;
     int op, leftArrow,checkedBlock;
     string inL1, inL2, inL3, inL4;
     string in1, in2, in3, in4;
+    int buttonClickCount;
     string Name = "", Age = "", Ins = "", Pn = "", mail = "", username = "", pass = "", cpass = "", ErrorText = "";
     string fadeInTextRB = "fade-inText-fwdRB", fadeOutTextRB = "fade-out-bckRB";
     string fadeInTextLB = "fade-inText-fwdLB", fadeOutTextLB = "fade-out-bckLB";
+    string buttonClassSix, buttonClassNine, buttonClassEleven, buttonS, buttonC, buttonA;
 
+    int jsc, ssc, hsc,jCl,sCl,hCl;
     int clickCounter;
     protected override async Task OnInitializedAsync()
     {
@@ -67,6 +81,7 @@
         op = 0;
         block3 = "none";
         block1and2 = "block";
+        block4 = "none";
         clickCounter = 0;
         animClass = "";
         leftArrow = 0;
@@ -80,6 +95,10 @@
         in3 = "";
         in4 = "";
         checkedBlock = -1;
+        buttonClassSix = "semi-transparent-button";
+        buttonClassNine = "semi-transparent-button";
+        buttonClassEleven = "semi-transparent-button";
+        buttonClickCount = 0;
     }
 
     public void endFirstBlock()
@@ -129,30 +148,33 @@
 
     public void BlockGo()
     {
-        if (checkInfo() == 0)
+        if(clickCounter == 2)
         {
-            SaveInfo();
-
-
-
-            clickCounter++;
-            if (clickCounter > checkedBlock)
-            {
-                checkedBlock++;
-            }
-            leftArrow = 100;
-            animClass = fadeOutTextRB;
-            {
-                StateHasChanged();
-            };
-            blockTime = new Timer();
-            blockTime.Interval = 650;
-
-            blockTime.Elapsed += blockCounter;
-            blockTime.Start();
-
 
         }
+        else if (clickCounter < 2)
+        {
+            if (checkInfo() == 0)
+            {
+                SaveInfo();
+            }
+        }
+        clickCounter++;
+        if (clickCounter > checkedBlock)
+        {
+            checkedBlock++;
+        }
+        leftArrow = 100;
+        animClass = fadeOutTextRB;
+        {
+            StateHasChanged();
+        };
+        blockTime = new Timer();
+        blockTime.Interval = 650;
+
+        blockTime.Elapsed += blockCounter;
+        blockTime.Start();
+
     }
     public void BlockGoLB()
     {
@@ -175,15 +197,17 @@
 
     private async void blockCounter(object sender, ElapsedEventArgs e)
     {
-        if(clickCounter == 2)
+        if(clickCounter == 3)
         {
             chnageBlock();
         }
-        else
+        else if(clickCounter == 2)
+        {
+            chnageBlock();
+        }
+        else if(clickCounter == 1)
         {
             changeInputPlaceholderAndPlaceInfo();
-            animClass = fadeInTextRB;
-
         }
         animClass = fadeInTextRB;
         if (checkedBlock >= clickCounter)
@@ -225,8 +249,6 @@
 
 
     }
-
-
 
 
 
@@ -282,6 +304,11 @@
             block3 = "block";
             block1and2 = "none";
         }
+        if (clickCounter == 3)
+        {
+            block3 = "none";
+            block4 = "block";
+        }
     }
 
     public void SaveInfo()
@@ -320,4 +347,61 @@
         }
     }
 
+    public void buttonClikedSix()
+    {
+        jsc++;
+        if(jsc % 2 != 0)
+        {
+            buttonClassSix = "semi-transparent-buttonClicked";
+            jCl = 1;
+        }
+        else
+        {
+            buttonClassSix = "semi-transparent-button";
+            jCl = 0;
+        }
+
+    }
+    public void buttonClikedNine()
+    {
+        ssc++;
+        if (ssc % 2 != 0)
+        {
+            buttonClassNine = "semi-transparent-buttonClicked";
+            sCl = 1;
+        }
+        else
+        {
+            buttonClassNine = "semi-transparent-button";
+            sCl = 0;
+        }
+
+    }
+    public void buttonClikedEleven()
+    {
+        hsc++;
+        if (hsc % 2 != 0)
+        {
+            buttonClassEleven = "semi-transparent-buttonClicked";
+            hCl = 1;
+        }
+        else
+        {
+            buttonClassEleven = "semi-transparent-button";
+            hCl = 0;
+        }
+    }
+
+    public void buttonClikedS ()
+    {
+
+    }
+    public void buttonClikedC()
+    {
+
+    }
+    public void buttonClikedA()
+    {
+
+    }
 }
