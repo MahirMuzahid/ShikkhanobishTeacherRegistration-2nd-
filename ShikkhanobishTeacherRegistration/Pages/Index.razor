@@ -25,25 +25,34 @@
 
                     <a class="ErrorText">@ErrorText</a>
 
+
                 </div>
                 <div class="basicDiv @animClass" style="display: @block3">
                     <a style="color: black;"><h5>Select class that you want to teach</h5></a><br>
-                    <a class="@buttonClassSix" @onclick="@buttonClikedSix">Class 6 - Class 8</a>
-                    <a class="@buttonClassNine" @onclick="@buttonClikedNine">Class 9 - Class 10</a>
-                    <a class="@buttonClassEleven" @onclick="@buttonClikedEleven">Class 11 - Class 12</a>
+                    <a class="@buttonClassSix" @onclick="@buttonClikedSix">Class 6-8</a>
+                    <a class="@buttonClassNine" @onclick="@buttonClikedNine">Class 9-10</a>
+                    <a class="@buttonClassEleven" @onclick="@buttonClikedEleven">Class 11-12</a>
                     <a class="ErrorText">@ErrorText</a>
                 </div>
                 <div class="basicDiv @animClass" style="display: @block4">
                     <a style="color: black;"><h5>Select group that you want to teach in Class 9</h5></a><br>
                     <a class="@buttonS" @onclick="@buttonClikedS">Science</a>
-                    <a class="@buttonC" @onclick="@buttonClikeC">Commerce</a>
-                    <a class="@buttonA" @onclick="@buttonCliked">Arts</a>
-                    <a class="ErrorText">@ErrorText</a>
+                    <a class="@buttonC" @onclick="@buttonClikedC">Commerce</a>
+                    <a class="@buttonA" @onclick="@buttonClikedA">Arts</a>
                 </div>
+                <div class="basicDiv @animClass" style="display: @block5">
+                    <a style="color: black;"><h5>You can take only 3 subject from this segment</h5></a><br>
+                    <a class="@buttonSS1" @onclick="@buttonClikedSS1">@SSCSubject1</a>
+                    <a class="@buttonSS2" @onclick="@buttonClikedSS2">@SSCSubject2</a>
+                    <a class="@buttonSS3" @onclick="@buttonClikedSS3">@SSCSubject3</a>
+                    <a class="@buttonSS4" @onclick="@buttonClikedSS4">@SSCSubject4</a>
+                </div>
+
+
                 @clickCounter @checkedBlock;
                 <div>
                     <span class="arrow" @onclick="@BlockGoLB" style="opacity: @leftArrow; margin:10px; display: inline-block; transform: rotateY(180deg); "></span>
-                    <span class="arrow" @onclick="@BlockGo" style="opacity: @op; display:  inline-block ;  margin:10px;"></span>
+                    <span class="arrow" @onclick="@BlockGo" style="opacity: @rightArrow; display:  inline-block ;  margin:10px;"></span>
                 </div>
 
             </div>
@@ -58,18 +67,20 @@
 @code{
     string StartAnim1stBlock, EndtAnim1stBlock,picClass, animClass;
     Timer timer,picTimer, blockTime;
-    string picscr , block1and2, block3,block4;
-    int op, leftArrow,checkedBlock;
+    string picscr , block1and2, block3,block4,block5;
+    int op, leftArrow,checkedBlock,rightArrow;
     string inL1, inL2, inL3, inL4;
     string in1, in2, in3, in4;
     int buttonClickCount;
+    string SSCSubject1, SSCSubject2, SSCSubject3, SSCSubject4;
     string Name = "", Age = "", Ins = "", Pn = "", mail = "", username = "", pass = "", cpass = "", ErrorText = "";
     string fadeInTextRB = "fade-inText-fwdRB", fadeOutTextRB = "fade-out-bckRB";
     string fadeInTextLB = "fade-inText-fwdLB", fadeOutTextLB = "fade-out-bckLB";
-    string buttonClassSix, buttonClassNine, buttonClassEleven, buttonS, buttonC, buttonA;
+    string buttonClassSix, buttonClassNine, buttonClassEleven, buttonS, buttonC, buttonA, buttonSS1, buttonSS2, buttonSS3, buttonSS4;
 
     int jsc, ssc, hsc,jCl,sCl,hCl;
-    int clickCounter;
+    int clickCounter,SSCGroupChoice;
+    string SSSCGroupChoice;
     protected override async Task OnInitializedAsync()
     {
         StartAnim1stBlock = "text-focus-in";
@@ -79,9 +90,11 @@
         timer.Elapsed += counter;
         timer.Start();
         op = 0;
+        rightArrow = 0;
         block3 = "none";
         block1and2 = "block";
         block4 = "none";
+        block5 = "none";
         clickCounter = 0;
         animClass = "";
         leftArrow = 0;
@@ -98,6 +111,9 @@
         buttonClassSix = "semi-transparent-button";
         buttonClassNine = "semi-transparent-button";
         buttonClassEleven = "semi-transparent-button";
+        buttonS = "semi-transparent-button";
+        buttonC = "semi-transparent-button";
+        buttonA = "semi-transparent-button";
         buttonClickCount = 0;
     }
 
@@ -137,6 +153,7 @@
     {
         picClass = "fade-in-fwd";
         op = 1;
+        rightArrow = 1;
         await InvokeAsync(() =>
         {
             StateHasChanged();
@@ -150,30 +167,45 @@
     {
         if(clickCounter == 2)
         {
+            clickCounter++;
+            if (clickCounter > checkedBlock)
+            {
+                checkedBlock++;
+            }
+            leftArrow = 100;
+            animClass = fadeOutTextRB;
+            {
+                StateHasChanged();
+            };
+            blockTime = new Timer();
+            blockTime.Interval = 650;
 
+            blockTime.Elapsed += blockCounter;
+            blockTime.Start();
         }
         else if (clickCounter < 2)
         {
             if (checkInfo() == 0)
             {
                 SaveInfo();
+                clickCounter++;
+                if (clickCounter > checkedBlock)
+                {
+                    checkedBlock++;
+                }
+                leftArrow = 100;
+                animClass = fadeOutTextRB;
+                {
+                    StateHasChanged();
+                };
+                blockTime = new Timer();
+                blockTime.Interval = 650;
+
+                blockTime.Elapsed += blockCounter;
+                blockTime.Start();
             }
         }
-        clickCounter++;
-        if (clickCounter > checkedBlock)
-        {
-            checkedBlock++;
-        }
-        leftArrow = 100;
-        animClass = fadeOutTextRB;
-        {
-            StateHasChanged();
-        };
-        blockTime = new Timer();
-        blockTime.Interval = 650;
 
-        blockTime.Elapsed += blockCounter;
-        blockTime.Start();
 
     }
     public void BlockGoLB()
@@ -235,10 +267,11 @@
             changeInputPlaceholderAndPlaceInfo();
 
         }
-        if(clickCounter == 1)
+        if(clickCounter == 1 || clickCounter == 2 || clickCounter == 3)
         {
             chnageBlock();
         }
+
         animClass = fadeInTextLB;
         SetInfo();
         await InvokeAsync(() =>
@@ -303,11 +336,13 @@
         {
             block3 = "block";
             block1and2 = "none";
+            block4 = "none";
         }
         if (clickCounter == 3)
         {
             block3 = "none";
             block4 = "block";
+            block5 = "none";
         }
     }
 
@@ -392,16 +427,135 @@
         }
     }
 
+
+    //Page 4
     public void buttonClikedS ()
     {
+        if (buttonS == "semi-transparent-button")
+        {
+            buttonS = "semi-transparent-buttonClicked";
+            buttonA = "semi-transparent-button";
+            buttonC = "semi-transparent-button";
+            SSCGroupChoice = 1;
+            SSCSubject1 = "Physics";
+            SSCSubject2 = "Chemistry";
+            SSCSubject3 = "Biology";
+            SSCSubject4 = "Math";
+            block4 = "none";
+            block5 = "block";
+            buttonSS1 = "semi-transparent-button";
+            buttonSS2 = "semi-transparent-button";
+            buttonSS3 = "semi-transparent-button";
+            buttonSS4 = "semi-transparent-button";
+            clickCounter++;
+        }
+        else
+        {
+            buttonS = "semi-transparent-button";
+        }
 
     }
     public void buttonClikedC()
     {
-
+        if (buttonC == "semi-transparent-button")
+        {
+            buttonC = "semi-transparent-buttonClicked";
+            buttonS = "semi-transparent-button";
+            buttonA = "semi-transparent-button";
+            SSCGroupChoice = 2;
+            SSCSubject1 = "Economics";
+            SSCSubject2 = "Finance";
+            SSCSubject3 = "Banking";
+            SSCSubject4 = "Career";
+            block4 = "none";
+            block5 = "block";
+            buttonSS1 = "semi-transparent-button";
+            buttonSS2 = "semi-transparent-button";
+            buttonSS3 = "semi-transparent-button";
+            buttonSS4 = "semi-transparent-button";
+            clickCounter++;
+        }
+        else
+        {
+            buttonC = "semi-transparent-button";
+        }
     }
     public void buttonClikedA()
     {
 
+        if (buttonA == "semi-transparent-button")
+        {
+            buttonA = "semi-transparent-buttonClicked";
+            buttonC = "semi-transparent-button";
+            buttonS = "semi-transparent-button";
+            SSCGroupChoice = 3;
+            SSCSubject1 = "Logic";
+            SSCSubject2 = "Geology";
+            SSCSubject3 = "";
+            SSCSubject4 = "";
+            block4 = "none";
+            block5 = "block";
+            buttonSS1 = "semi-transparent-button";
+            buttonSS2 = "semi-transparent-button";
+            buttonSS3 = "semi-transparent-button";
+            buttonSS4 = "semi-transparent-button";
+            clickCounter++;
+        }
+        else
+        {
+            buttonA = "semi-transparent-button";
+        }
+    }
+
+
+    //Page 4 ends
+
+    //Page 5
+    public void buttonClikedSS1()
+    {
+        if (buttonSS1 == "semi-transparent-button")
+        {
+
+        }
+        else
+        {
+            buttonSS1 = "semi-transparent-button";
+        }
+
+    }
+    public void buttonClikedSS2()
+    {
+        if (buttonSS2 == "semi-transparent-button")
+        {
+
+        }
+        else
+        {
+            buttonSS2 = "semi-transparent-button";
+        }
+    }
+    public void buttonClikedSS3()
+    {
+
+        if (buttonSS3 == "semi-transparent-button")
+        {
+
+        }
+        else
+        {
+            buttonSS3 = "semi-transparent-button";
+        }
+    }
+    public void buttonClikedSS4()
+    {
+
+        if (buttonSS4 == "semi-transparent-button")
+        {
+
+        }
+        else
+        {
+            buttonSS4 = "semi-transparent-button";
+        }
     }
 }
