@@ -31,26 +31,41 @@
                     <a style="color: black;"><h5>Select class that you want to teach</h5></a><br>
                     <a class="@buttonClassSix" @onclick="@buttonClikedSix">Class 6-8</a>
                     <a class="@buttonClassNine" @onclick="@buttonClikedNine">Class 9-10</a>
-                    <a class="@buttonClassEleven" @onclick="@buttonClikedEleven">Class 11-12</a>
+                    <a class="@buttonClassEleven" @onclick="@buttonClikedEleven">Class 11-12</a><br />
                     <a class="ErrorText">@ErrorText</a>
                 </div>
                 <div class="basicDiv @animClass" style="display: @block4">
-                    <a style="color: black;"><h5>Select group that you want to teach in Class 9</h5></a><br>
+                    <a style="color: black;"><h5>Select group that you want to teach in Class 9-10</h5></a><br>
                     <a class="@buttonS" @onclick="@buttonClikedS">Science</a>
                     <a class="@buttonC" @onclick="@buttonClikedC">Commerce</a>
                     <a class="@buttonA" @onclick="@buttonClikedA">Arts</a>
                 </div>
                 <div class="basicDiv @animClass" style="display: @block5">
-                    <a style="color: black;"><h5>You can take only 3 subject from this segment</h5></a><br>
+                    <a style="color: black;"><h5>You can take upto @sn subjects from this segment</h5></a><br>
                     <a class="@buttonSS1" @onclick="@buttonClikedSS1">@SSCSubject1</a>
                     <a class="@buttonSS2" @onclick="@buttonClikedSS2">@SSCSubject2</a>
                     <a class="@buttonSS3" @onclick="@buttonClikedSS3">@SSCSubject3</a>
-                    <a class="@buttonSS4" @onclick="@buttonClikedSS4">@SSCSubject4</a>
+                    <a class="@buttonSS4" @onclick="@buttonClikedSS4">@SSCSubject4</a> <br />
+                    <a class="@buttonSS5" @onclick="@buttonClikedSS5">@SSCSubject5</a>
+                    <a class="@buttonSS6" @onclick="@buttonClikedSS6">@SSCSubject6</a>
+                    <a class="@buttonSS7" @onclick="@buttonClikedSS7">@SSCSubject7</a>
+                    <a class="@buttonSS8" @onclick="@buttonClikedSS8">@SSCSubject8</a> <br />
+                    <a class="ErrorText">@ErrorText</a>
+                </div>
+                <div class="basicDiv @animClass" style="display: @block6">
+                    <a style="color: black;"><h5>Select group that you want to teach in Class 11-12</h5></a><br>
+                    <a class="@buttonS" @onclick="@buttonClikedS">Science</a>
+                    <a class="@buttonC" @onclick="@buttonClikedC">Commerce</a>
+                    <a class="@buttonA" @onclick="@buttonClikedA">Arts</a>
+                </div>
+                <div class="basicDiv @animClass" style="display: @block7; color: black">
+                    Thank you for registration. <br />
+                    We will notify you after we review your registration form.
                 </div>
 
 
-                @clickCounter @checkedBlock;
-                <div>
+                <a style="color: black">@Name @Age @Ins @Pn @mail @username @pass  @SSCSubjectChoice @HSCSubjectChoice   </a>
+                <div style="display: @btnDisplay">
                     <span class="arrow" @onclick="@BlockGoLB" style="opacity: @leftArrow; margin:10px; display: inline-block; transform: rotateY(180deg); "></span>
                     <span class="arrow" @onclick="@BlockGo" style="opacity: @rightArrow; display:  inline-block ;  margin:10px;"></span>
                 </div>
@@ -67,34 +82,39 @@
 @code{
     string StartAnim1stBlock, EndtAnim1stBlock,picClass, animClass;
     Timer timer,picTimer, blockTime;
-    string picscr , block1and2, block3,block4,block5;
-    int op, leftArrow,checkedBlock,rightArrow;
+    string picscr , block1and2, block3,block4,block5, block6, block7,btnDisplay;
+    int op, leftArrow,checkedBlock,rightArrow,sn;
     string inL1, inL2, inL3, inL4;
     string in1, in2, in3, in4;
     int buttonClickCount;
-    string SSCSubject1, SSCSubject2, SSCSubject3, SSCSubject4;
+    string SSCSubject1, SSCSubject2, SSCSubject3, SSCSubject4, SSCSubject5, SSCSubject6, SSCSubject7, SSCSubject8;
     string Name = "", Age = "", Ins = "", Pn = "", mail = "", username = "", pass = "", cpass = "", ErrorText = "";
     string fadeInTextRB = "fade-inText-fwdRB", fadeOutTextRB = "fade-out-bckRB";
     string fadeInTextLB = "fade-inText-fwdLB", fadeOutTextLB = "fade-out-bckLB";
-    string buttonClassSix, buttonClassNine, buttonClassEleven, buttonS, buttonC, buttonA, buttonSS1, buttonSS2, buttonSS3, buttonSS4;
+    string buttonClassSix, buttonClassNine, buttonClassEleven, buttonS, buttonC, buttonA, buttonSS1, buttonSS2, buttonSS3, buttonSS4, buttonSS5, buttonSS6, buttonSS7, buttonSS8;
 
     int jsc, ssc, hsc,jCl,sCl,hCl;
-    int clickCounter,SSCGroupChoice;
-    string SSSCGroupChoice;
+    int clickCounter,SSCGroupChoice,HSCGroupChoice;
+    string SSCSubjectChoice, HSCSubjectChoice, ClassChoice;
+    bool onlyEleven;
     protected override async Task OnInitializedAsync()
     {
         StartAnim1stBlock = "text-focus-in";
+        onlyEleven = false;
         StateHasChanged();
         timer = new Timer();
         timer.Interval = 2000;
         timer.Elapsed += counter;
         timer.Start();
         op = 0;
+        btnDisplay = "block";
         rightArrow = 0;
         block3 = "none";
         block1and2 = "block";
         block4 = "none";
         block5 = "none";
+        block6 = "none";
+        block7 = "none";
         clickCounter = 0;
         animClass = "";
         leftArrow = 0;
@@ -165,48 +185,189 @@
 
     public void BlockGo()
     {
+        if(clickCounter == 4)
+        {
+            int i = 0;
+            if(SSCGroupChoice == 1)
+            {
+                if (buttonSS1 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = "P";
+                }
+                if (buttonSS2 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = SSCSubjectChoice + "C";
+                }
+                if (buttonSS3 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = SSCSubjectChoice + "B";
+                }
+                if (buttonSS4 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = SSCSubjectChoice + "M";
+                }
+                if (i == 0)
+                {
+                    ErrorText = "Choose any 3 subjects";
+                }
+                else if (i <= 3)
+                {
+                    buttonSS1 = "semi-transparent-button";
+                    buttonSS2 = "semi-transparent-button";
+                    buttonSS3 = "semi-transparent-button";
+                    buttonSS4 = "semi-transparent-button";
+                    buttonSS4 = "semi-transparent-button";
+                    buttonS = "semi-transparent-button";
+                    buttonC = "semi-transparent-button";
+                    buttonA = "semi-transparent-button";
+                    RightArrowTimerStart();
+                }
+                else
+                {
+                    ErrorText = "Take 3 subjects";
+                }
+            }
+            if (SSCGroupChoice == 2)
+            {
+                if (buttonSS1 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = "E";
+                }
+                if (buttonSS2 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = SSCSubjectChoice + "F";
+                }
+                if (buttonSS3 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = SSCSubjectChoice + "B";
+                }
+                if (buttonSS4 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = SSCSubjectChoice + "C";
+                }
+                if (i == 0)
+                {
+                    ErrorText = "Take any subjects";
+                }
+                else if (i <= 3)
+                {
+                    buttonSS1 = "semi-transparent-button";
+                    buttonSS2 = "semi-transparent-button";
+                    buttonSS3 = "semi-transparent-button";
+                    buttonSS4 = "semi-transparent-button";
+                    buttonSS4 = "semi-transparent-button";
+                    buttonS = "semi-transparent-button";
+                    buttonC = "semi-transparent-button";
+                    buttonA = "semi-transparent-button";
+                    RightArrowTimerStart();
+                }
+                else
+                {
+                    ErrorText = "Take any subject";
+                }
+            }
+            if (SSCGroupChoice == 3)
+            {
+                if (buttonSS1 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = "L";
+                }
+                if (buttonSS2 == "semi-transparent-buttonClicked")
+                {
+                    i++;
+                    SSCSubjectChoice = SSCSubjectChoice + "G";
+                }
+                if (i == 0)
+                {
+                    ErrorText = "Choose any subject";
+                }
+                else if (i <= 3)
+                {
+                    buttonSS1 = "semi-transparent-button";
+                    buttonSS2 = "semi-transparent-button";
+                    buttonSS3 = "semi-transparent-button";
+                    buttonSS4 = "semi-transparent-button";
+                    buttonSS4 = "semi-transparent-button";
+                    buttonS = "semi-transparent-button";
+                    buttonC = "semi-transparent-button";
+                    buttonA = "semi-transparent-button";
+                    RightArrowTimerStart();
+                }
+                else
+                {
+                    ErrorText = "Take 3 subjects";
+                }
+            }
+
+        }
         if(clickCounter == 2)
         {
-            clickCounter++;
-            if (clickCounter > checkedBlock)
+            int i = 0;
+            if(buttonClassSix == "semi-transparent-buttonClicked")
             {
-                checkedBlock++;
+                i++;
+                ClassChoice = "s";
             }
-            leftArrow = 100;
-            animClass = fadeOutTextRB;
+            if (buttonClassNine == "semi-transparent-buttonClicked")
             {
-                StateHasChanged();
-            };
-            blockTime = new Timer();
-            blockTime.Interval = 650;
-
-            blockTime.Elapsed += blockCounter;
-            blockTime.Start();
+                i++;
+                ClassChoice = ClassChoice + "n";
+            }
+            if (buttonClassEleven == "semi-transparent-buttonClicked")
+            {
+                i++;
+                ClassChoice = ClassChoice + "e";
+            }
+            if(i > 0)
+            {
+                RightArrowTimerStart();
+                ErrorText = "";
+            }
+            else
+            {
+                ErrorText = "Chose a class";
+            }
         }
-        else if (clickCounter < 2)
+        if( clickCounter == 6 || clickCounter == 7)
+        {
+            RightArrowTimerStart();
+        }
+        if (clickCounter < 2)
         {
             if (checkInfo() == 0)
             {
                 SaveInfo();
-                clickCounter++;
-                if (clickCounter > checkedBlock)
-                {
-                    checkedBlock++;
-                }
                 leftArrow = 100;
-                animClass = fadeOutTextRB;
-                {
-                    StateHasChanged();
-                };
-                blockTime = new Timer();
-                blockTime.Interval = 650;
-
-                blockTime.Elapsed += blockCounter;
-                blockTime.Start();
+                RightArrowTimerStart();
             }
         }
+    }
 
+    public void RightArrowTimerStart ()
+    {
+        clickCounter++;
+        if (clickCounter > checkedBlock)
+        {
+            checkedBlock++;
+        }
+        animClass = fadeOutTextRB;
+        {
+            StateHasChanged();
+        };
+        blockTime = new Timer();
+        blockTime.Interval = 650;
 
+        blockTime.Elapsed += blockCounter;
+        blockTime.Start();
     }
     public void BlockGoLB()
     {
@@ -229,36 +390,61 @@
 
     private async void blockCounter(object sender, ElapsedEventArgs e)
     {
-        if(clickCounter == 3)
+        if(clickCounter == 2 || clickCounter == 3 || clickCounter == 4 || clickCounter == 6 || clickCounter == 7)
         {
             chnageBlock();
+            animClass = fadeInTextRB;
+            if (checkedBlock >= clickCounter)
+            {
+                SetInfo();
+            }
+            else
+            {
+                in1 = "";
+                in2 = "";
+                in3 = "";
+                in4 = "";
+            }
+
+            blockTime.Stop();
+            await InvokeAsync(() =>
+            {
+                StateHasChanged();
+            });
         }
-        else if(clickCounter == 2)
+        if(clickCounter == 5)
         {
             chnageBlock();
+            animClass = fadeInTextRB;
+            blockTime.Stop();
+            await InvokeAsync(() =>
+            {
+                StateHasChanged();
+            });
         }
-        else if(clickCounter == 1)
+        if(clickCounter == 1)
         {
             changeInputPlaceholderAndPlaceInfo();
-        }
-        animClass = fadeInTextRB;
-        if (checkedBlock >= clickCounter)
-        {
-            SetInfo();
-        }
-        else
-        {
-            in1 = "";
-            in2 = "";
-            in3 = "";
-            in4 = "";
+            animClass = fadeInTextRB;
+            if (checkedBlock >= clickCounter)
+            {
+                SetInfo();
+            }
+            else
+            {
+                in1 = "";
+                in2 = "";
+                in3 = "";
+                in4 = "";
+            }
+
+            blockTime.Stop();
+            await InvokeAsync(() =>
+            {
+                StateHasChanged();
+            });
         }
 
-        blockTime.Stop();
-        await InvokeAsync(() =>
-        {
-            StateHasChanged();
-        });
     }
     private async void blockCounterLB(object sender, ElapsedEventArgs e)
     {
@@ -267,7 +453,7 @@
             changeInputPlaceholderAndPlaceInfo();
 
         }
-        if(clickCounter == 1 || clickCounter == 2 || clickCounter == 3)
+        if(clickCounter == 1 || clickCounter == 2 || clickCounter == 3 || clickCounter == 4 || clickCounter == 5 || clickCounter == 6)
         {
             chnageBlock();
         }
@@ -279,8 +465,6 @@
             StateHasChanged();
         });
         blockTime.Stop();
-
-
     }
 
 
@@ -312,10 +496,21 @@
             {
                 chk = 1;
             }
+            if(clickCounter == 1)
+            {
+                if(in3 != in4)
+                {
+                    chk = 2;
+                }
+            }
         }
         if(chk == 1)
         {
             ErrorText = "Empty Box is not allowed";
+        }
+        else if(chk == 2)
+        {
+            ErrorText = "Password doesn't match";
         }
         else
         {
@@ -340,9 +535,203 @@
         }
         if (clickCounter == 3)
         {
-            block3 = "none";
-            block4 = "block";
+            bool g = true;
+            for(int i = 0; i < ClassChoice.Length; i++)
+            {
+                if(ClassChoice[i] == 'n' || ClassChoice[i] == 'e')
+                {
+                    g = true;
+                }
+                else
+                {
+                    g = false;
+                }
+            }
+            if(g == true)
+            {
+                bool s = false, h = false;
+                for (int i = 0; i < ClassChoice.Length; i++)
+                {
+                    if (ClassChoice[i] == 'n')
+                    {
+                        s = true;
+                    }
+                    if (ClassChoice[i] == 'e')
+                    {
+                        h = true;
+                    }
+                }
+                if(s == true)
+                {
+                    SSCSubjectChoice = "";
+                    block3 = "none";
+                    block4 = "block";
+                    block5 = "none";
+                    if (SSCGroupChoice == 1)
+                    {
+                        buttonS = "semi-transparent-buttonClicked";
+                    }
+                    if (SSCGroupChoice == 2)
+                    {
+                        buttonC = "semi-transparent-buttonClicked";
+                    }
+                    if (SSCGroupChoice == 3)
+                    {
+                        buttonA = "semi-transparent-buttonClicked";
+                    }
+                }
+                else if(h == true)
+                {
+                    block3 = "none";
+                    block6 = "block";
+                    block4 = "none";
+                    clickCounter = 5;
+                    onlyEleven = true;
+                }
+
+            }
+            else
+            {
+                block3 = "none";
+                block7 = "block";
+                block5 = "none";
+                btnDisplay = "none";
+            }
+
+        }
+        if (clickCounter == 4)
+        {
+            if(onlyEleven == false)
+            {
+                sn = 3;
+                SSCSubject5 = "";
+                SSCSubject6 = "";
+                SSCSubject7 = "";
+                SSCSubject8 = "";
+                buttonSS5 = "";
+                buttonSS6 = "";
+                buttonSS7 = "";
+                buttonSS8 = "";
+                for (int i = 0; i < SSCSubjectChoice.Length; i++)
+                {
+                    if (SSCGroupChoice == 1)
+                    {
+                        SSCSubject1 = "Physics";
+                        SSCSubject2 = "Chemistry";
+                        SSCSubject3 = "Biology";
+                        SSCSubject4 = "Math";
+                        if (SSCSubjectChoice[i] == 'P')
+                        {
+                            buttonSS1 = "semi-transparent-buttonClicked";
+                        }
+                        if (SSCSubjectChoice[i] == 'C')
+                        {
+                            buttonSS2 = "semi-transparent-buttonClicked";
+                        }
+                        if (SSCSubjectChoice[i] == 'B')
+                        {
+                            buttonSS3 = "semi-transparent-buttonClicked";
+                        }
+                        if (SSCSubjectChoice[i] == 'M')
+                        {
+                            buttonSS4 = "semi-transparent-buttonClicked";
+                        }
+                    }
+                    if (SSCGroupChoice == 2)
+                    {
+                        SSCSubject1 = "Economics";
+                        SSCSubject2 = "Finance";
+                        SSCSubject3 = "Banking";
+                        SSCSubject4 = "Career";
+                        if (SSCSubjectChoice[i] == 'E')
+                        {
+                            buttonSS1 = "semi-transparent-buttonClicked";
+                        }
+                        if (SSCSubjectChoice[i] == 'F')
+                        {
+                            buttonSS2 = "semi-transparent-buttonClicked";
+                        }
+                        if (SSCSubjectChoice[i] == 'B')
+                        {
+                            buttonSS3 = "semi-transparent-buttonClicked";
+                        }
+                        if (SSCSubjectChoice[i] == 'C')
+                        {
+                            buttonSS4 = "semi-transparent-buttonClicked";
+                        }
+                    }
+                    if (SSCGroupChoice == 3)
+                    {
+                        SSCSubject1 = "Logic";
+                        SSCSubject2 = "Geology";
+                        SSCSubject3 = "";
+                        SSCSubject4 = "";
+                        if (SSCSubjectChoice[i] == 'L')
+                        {
+                            buttonSS1 = "semi-transparent-buttonClicked";
+                        }
+                        if (SSCSubjectChoice[i] == 'G')
+                        {
+                            buttonSS2 = "semi-transparent-buttonClicked";
+                        }
+                        buttonSS1 = "";
+                        buttonSS1 = "";
+                    }
+                }
+                block4 = "none";
+                block5 = "block";
+                block6 = "none";
+            }
+            else
+            {
+                block3 = "block";
+                block6 = "none";
+                block5 = "none";
+            }
+
+        }
+        if (clickCounter == 5)
+        {
+            bool g = true;
+            for (int i = 0; i < ClassChoice.Length; i++)
+            {
+                if (ClassChoice[i] == 'e')
+                {
+                    g = true;
+                }
+                else
+                {
+                    g = false;
+                }
+            }
+            if(g == true)
+            {
+                block5 = "none";
+                block6 = "block";
+                block4 = "none";
+            }
+            else
+            {
+                block3 = "none";
+                block7 = "block";
+                block5 = "none";
+                btnDisplay = "none";
+            }
+
+        }
+        if (clickCounter == 6)
+        {
+            block6 = "none";
+            block5 = "block";
+            block7 = "none";
+        }
+        if (clickCounter == 7)
+        {
+            saveHSCSubject();
+            block6 = "none";
+            block7 = "block";
             block5 = "none";
+            btnDisplay = "none";
         }
     }
 
@@ -431,7 +820,7 @@
     //Page 4
     public void buttonClikedS ()
     {
-        if (buttonS == "semi-transparent-button")
+        if (buttonS == "semi-transparent-button" && clickCounter == 3)
         {
             buttonS = "semi-transparent-buttonClicked";
             buttonA = "semi-transparent-button";
@@ -447,7 +836,46 @@
             buttonSS2 = "semi-transparent-button";
             buttonSS3 = "semi-transparent-button";
             buttonSS4 = "semi-transparent-button";
+            SSCSubject5 = "";
+            SSCSubject6 = "";
+            SSCSubject7 = "";
+            SSCSubject8 = "";
+            buttonSS5 = "";
+            buttonSS6 = "";
+            buttonSS7 = "";
+            buttonSS8 = "";
             clickCounter++;
+            checkedBlock++;
+            sn = 3;
+        }
+        else if (buttonS == "semi-transparent-button" && clickCounter == 5)
+        {
+            sn = 6;
+            buttonS = "semi-transparent-buttonClicked";
+            buttonA = "semi-transparent-button";
+            buttonC = "semi-transparent-button";
+            HSCGroupChoice = 1;
+            SSCSubject1 = "Physics First Paper";
+            SSCSubject2 = "Physics Second Paper";
+            SSCSubject3 = "Chemistry First Paper";
+            SSCSubject4 = "Chemistry Second Paper";
+            SSCSubject5 = "Biology First Paper";
+            SSCSubject6 = "Biology Second Paper";
+            SSCSubject7 = "General Math";
+            SSCSubject8 = "Higher Math";
+            block6 = "none";
+            block5 = "block";
+            buttonSS1 = "semi-transparent-button";
+            buttonSS2 = "semi-transparent-button";
+            buttonSS3 = "semi-transparent-button";
+            buttonSS4 = "semi-transparent-button";
+            buttonSS5 = "semi-transparent-button";
+            buttonSS6 = "semi-transparent-button";
+            buttonSS7 = "semi-transparent-button";
+            buttonSS8 = "semi-transparent-button";
+
+            clickCounter++;
+            checkedBlock++;
         }
         else
         {
@@ -457,8 +885,9 @@
     }
     public void buttonClikedC()
     {
-        if (buttonC == "semi-transparent-button")
+        if (buttonC == "semi-transparent-button" && clickCounter == 3)
         {
+            sn = 3;
             buttonC = "semi-transparent-buttonClicked";
             buttonS = "semi-transparent-button";
             buttonA = "semi-transparent-button";
@@ -467,13 +896,51 @@
             SSCSubject2 = "Finance";
             SSCSubject3 = "Banking";
             SSCSubject4 = "Career";
+            SSCSubject5 = "";
+            SSCSubject6 = "";
+            SSCSubject7 = "";
+            SSCSubject8 = "";
             block4 = "none";
             block5 = "block";
             buttonSS1 = "semi-transparent-button";
             buttonSS2 = "semi-transparent-button";
             buttonSS3 = "semi-transparent-button";
             buttonSS4 = "semi-transparent-button";
+            buttonSS5 = "";
+            buttonSS6 = "";
+            buttonSS7 = "";
+            buttonSS8 = "";
+
             clickCounter++;
+            checkedBlock++;
+        }
+        else if(buttonC == "semi-transparent-button" && clickCounter == 5)
+        {
+            sn = 3;
+            buttonC = "semi-transparent-buttonClicked";
+            buttonS = "semi-transparent-button";
+            buttonA = "semi-transparent-button";
+            HSCGroupChoice = 2;
+            SSCSubject1 = "Economics";
+            SSCSubject2 = "Finance";
+            SSCSubject3 = "Banking";
+            SSCSubject4 = "Career";
+            SSCSubject5 = "";
+            SSCSubject6 = "";
+            SSCSubject7 = "";
+            SSCSubject8 = "";
+            block6 = "none";
+            block5 = "block";
+            buttonSS1 = "semi-transparent-button";
+            buttonSS2 = "semi-transparent-button";
+            buttonSS3 = "semi-transparent-button";
+            buttonSS4 = "semi-transparent-button";
+            buttonSS5 = "";
+            buttonSS6 = "";
+            buttonSS7 = "";
+            buttonSS8 = "";
+            clickCounter++;
+            checkedBlock++;
         }
         else
         {
@@ -483,8 +950,9 @@
     public void buttonClikedA()
     {
 
-        if (buttonA == "semi-transparent-button")
+        if (buttonA == "semi-transparent-button" && clickCounter == 3)
         {
+            sn = 2;
             buttonA = "semi-transparent-buttonClicked";
             buttonC = "semi-transparent-button";
             buttonS = "semi-transparent-button";
@@ -493,13 +961,49 @@
             SSCSubject2 = "Geology";
             SSCSubject3 = "";
             SSCSubject4 = "";
+            SSCSubject5 = "";
+            SSCSubject6 = "";
+            SSCSubject7 = "";
+            SSCSubject8 = "";
             block4 = "none";
             block5 = "block";
             buttonSS1 = "semi-transparent-button";
             buttonSS2 = "semi-transparent-button";
-            buttonSS3 = "semi-transparent-button";
-            buttonSS4 = "semi-transparent-button";
+            buttonSS3 = "";
+            buttonSS4 = "";
+            buttonSS5 = "";
+            buttonSS6 = "";
+            buttonSS7 = "";
+            buttonSS8 = "";
             clickCounter++;
+            checkedBlock++;
+        }
+        else if(buttonA == "semi-transparent-button" && clickCounter == 5)
+        {
+            sn = 2;
+            buttonA = "semi-transparent-buttonClicked";
+            buttonC = "semi-transparent-button";
+            buttonS = "semi-transparent-button";
+            HSCGroupChoice = 3;
+            SSCSubject1 = "Logic";
+            SSCSubject2 = "Geology";
+            SSCSubject3 = "";
+            SSCSubject4 = "";
+            SSCSubject5 = "";
+            SSCSubject6 = "";
+            SSCSubject7 = "";
+            block6 = "none";
+            block5 = "block";
+            buttonSS1 = "semi-transparent-button";
+            buttonSS2 = "semi-transparent-button";
+            buttonSS3 = "";
+            buttonSS4 = "";
+            buttonSS5 = "";
+            buttonSS6 = "";
+            buttonSS7 = "";
+            buttonSS8 = "";
+            clickCounter++;
+            checkedBlock++;
         }
         else
         {
@@ -515,7 +1019,7 @@
     {
         if (buttonSS1 == "semi-transparent-button")
         {
-
+            buttonSS1 = "semi-transparent-buttonClicked";
         }
         else
         {
@@ -527,7 +1031,7 @@
     {
         if (buttonSS2 == "semi-transparent-button")
         {
-
+            buttonSS2 = "semi-transparent-buttonClicked";
         }
         else
         {
@@ -539,7 +1043,7 @@
 
         if (buttonSS3 == "semi-transparent-button")
         {
-
+            buttonSS3 = "semi-transparent-buttonClicked";
         }
         else
         {
@@ -551,11 +1055,128 @@
 
         if (buttonSS4 == "semi-transparent-button")
         {
-
+            buttonSS4 = "semi-transparent-buttonClicked";
         }
         else
         {
             buttonSS4 = "semi-transparent-button";
+        }
+    }
+    public void buttonClikedSS5()
+    {
+        if (buttonSS5 == "semi-transparent-button")
+        {
+            buttonSS5 = "semi-transparent-buttonClicked";
+        }
+        else
+        {
+            buttonSS5 = "semi-transparent-button";
+        }
+
+    }
+    public void buttonClikedSS6()
+    {
+        if (buttonSS6 == "semi-transparent-button")
+        {
+            buttonSS6 = "semi-transparent-buttonClicked";
+        }
+        else
+        {
+            buttonSS6 = "semi-transparent-button";
+        }
+    }
+    public void buttonClikedSS7()
+    {
+
+        if (buttonSS7 == "semi-transparent-button")
+        {
+            buttonSS7 = "semi-transparent-buttonClicked";
+        }
+        else
+        {
+            buttonSS7 = "semi-transparent-button";
+        }
+    }
+    public void buttonClikedSS8()
+    {
+
+        if (buttonSS8 == "semi-transparent-button")
+        {
+            buttonSS8 = "semi-transparent-buttonClicked";
+        }
+        else
+        {
+            buttonSS8 = "semi-transparent-button";
+        }
+    }
+
+    public void saveHSCSubject()
+    {
+        if(HSCGroupChoice == 1)
+        {
+            if(buttonSS1 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = "P1";
+            }
+            if (buttonSS2 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "P2";
+            }
+            if (buttonSS3 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "C1";
+            }
+            if (buttonSS4 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "C2";
+            }
+            if (buttonSS5 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "B1";
+            }
+            if (buttonSS6 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "B2";
+            }
+            if (buttonSS7 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "GM";
+            }
+            if (buttonSS8 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "HH";
+            }
+
+        }
+        if (HSCGroupChoice == 2)
+        {
+            if (buttonSS1 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = "E";
+            }
+            if (buttonSS2 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "F";
+            }
+            if (buttonSS3 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "B";
+            }
+            if (buttonSS4 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "C";
+            }
+        }
+        if (HSCGroupChoice == 3)
+        {
+            if (buttonSS1 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = "L";
+            }
+            if (buttonSS2 == "semi-transparent-buttonClicked")
+            {
+                HSCSubjectChoice = HSCSubjectChoice + "G";
+            }
         }
     }
 }
