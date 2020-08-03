@@ -1,89 +1,94 @@
 ﻿@page "/"
+@using Newtonsoft.Json;
+@using System.Net.Http;
+@using System.Text;
+@using ShikkhanobishTeacherRegistration.Data;
+
 @using System.Timers
-    <div class="gradientBAckground">
-        <div style="flex:auto">
-            <div class="@StartAnim1stBlock">
-                <img class="@picClass" src="Logo.png" style="opacity: @op;" />
-                <a style="color: black">Welcome To Shikkhanobish Teacher Registration</a><br>
-                <div class="basicDiv @animClass" style="opacity: @op; display: @block1and2;">
-                    <div class="form__group field">
-                        <input class="form__field" @bind="in1" placeholder="Name" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:black">@inL1</label>
-                    </div>
-                    <div class="form__group field">
-                        <input class="form__field" @bind="in2" placeholder="Age" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:black">@inL2</label>
-                    </div>
-                    <div class="form__group field">
-                        <input class="form__field" @bind="in3" placeholder="Institution" name="name" id='name' required />
-                        <label for="name" class="form__label" style="color:black">@inL3</label>
-                    </div>
-                    <div class="form__group field">
-                        <input class="form__field" @bind="in4" placeholder="Phonenumber" name="name" id='name' required>
-                        <label for="name" class="form__label" style="color:black">@inL4</label>
-                    </div>
-
-                    <a class="ErrorText">@ErrorText</a>
-
-
+<div class="gradientBAckground">
+    <div style="flex:auto">
+        <div class="@StartAnim1stBlock">
+            <img class="@picClass" src="Logo.png" style="opacity: @op;" />
+            <a style="color: black">Welcome To Shikkhanobish Teacher Registration</a><br>
+            <div class="basicDiv @animClass" style="opacity: @op; display: @block1and2;">
+                <div class="form__group field">
+                    <input class="form__field" @bind="in1" placeholder="Name" name="name" id='name' required />
+                    <label for="name" class="form__label" style="color:black">@inL1</label>
                 </div>
-                <div class="basicDiv @animClass" style="display: @block3">
-                    <a style="color: black;"><h5>Select class that you want to teach</h5></a><br>
-                    <a class="@buttonClassSix" @onclick="@buttonClikedSix">Class 6-8</a>
-                    <a class="@buttonClassNine" @onclick="@buttonClikedNine">Class 9-10</a>
-                    <a class="@buttonClassEleven" @onclick="@buttonClikedEleven">Class 11-12</a><br />
-                    <a class="ErrorText">@ErrorText</a>
+                <div class="form__group field">
+                    <input class="form__field" @bind="in2" placeholder="Age" name="name" id='name' required />
+                    <label for="name" class="form__label" style="color:black">@inL2</label>
                 </div>
-                <div class="basicDiv @animClass" style="display: @block4">
-                    <a style="color: black;"><h5>Select group that you want to teach in Class 9-10</h5></a><br>
-                    <a class="@buttonS" @onclick="@buttonClikedS">Science</a>
-                    <a class="@buttonC" @onclick="@buttonClikedC">Commerce</a>
-                    <a class="@buttonA" @onclick="@buttonClikedA">Arts</a>
+                <div class="form__group field">
+                    <input class="form__field" @bind="in3" placeholder="Institution" name="name" id='name' required />
+                    <label for="name" class="form__label" style="color:black">@inL3</label>
                 </div>
-                <div class="basicDiv @animClass" style="display: @block5">
-                    <a style="color: black;"><h5>You can take upto @sn subjects from this segment</h5></a><br>
-                    <a class="@buttonSS1" @onclick="@buttonClikedSS1">@SSCSubject1</a>
-                    <a class="@buttonSS2" @onclick="@buttonClikedSS2">@SSCSubject2</a>
-                    <a class="@buttonSS3" @onclick="@buttonClikedSS3">@SSCSubject3</a>
-                    <a class="@buttonSS4" @onclick="@buttonClikedSS4">@SSCSubject4</a> <br />
-                    <a class="@buttonSS5" @onclick="@buttonClikedSS5">@SSCSubject5</a>
-                    <a class="@buttonSS6" @onclick="@buttonClikedSS6">@SSCSubject6</a>
-                    <a class="@buttonSS7" @onclick="@buttonClikedSS7">@SSCSubject7</a>
-                    <a class="@buttonSS8" @onclick="@buttonClikedSS8">@SSCSubject8</a> <br />
-                    <a class="ErrorText">@ErrorText</a>
-                </div>
-                <div class="basicDiv @animClass" style="display: @block6">
-                    <a style="color: black;"><h5>Select group that you want to teach in Class 11-12</h5></a><br>
-                    <a class="@buttonS" @onclick="@buttonClikedS">Science</a>
-                    <a class="@buttonC" @onclick="@buttonClikedC">Commerce</a>
-                    <a class="@buttonA" @onclick="@buttonClikedA">Arts</a>
-                </div>
-                <div class="basicDiv @animClass" style="display: @block7; color: black; font-size: 15px">
-                    Thank you for registration. <br />
-                    We will notify you after we review your registration form.
+                <div class="form__group field">
+                    <input class="form__field" @bind="in4" placeholder="Phonenumber" name="name" id='name' required>
+                    <label for="name" class="form__label" style="color:black">@inL4</label>
                 </div>
 
+                <a class="ErrorText">@ErrorText</a>
 
-                <a style="color: black">@Name @Age @Ins @Pn @mail @username @pass  @SSCSubjectChoice @HSCSubjectChoice   </a>
-                <div style="display: @btnDisplay">
-                    <span class="arrow" @onclick="@BlockGoLB" style="opacity: @leftArrow; margin:10px; display: inline-block; transform: rotateY(180deg); "></span>
-                    <span class="arrow" @onclick="@BlockGo" style="opacity: @rightArrow; display:  inline-block ;  margin:10px;"></span>
-                </div>
 
+            </div>
+            <div class="basicDiv @animClass" style="display: @block3">
+                <a style="color: black;"><h5>Select class that you want to teach</h5></a><br>
+                <a class="@buttonClassSix" @onclick="@buttonClikedSix">Class 6-8</a>
+                <a class="@buttonClassNine" @onclick="@buttonClikedNine">Class 9-10</a>
+                <a class="@buttonClassEleven" @onclick="@buttonClikedEleven">Class 11-12</a><br />
+                <a class="ErrorText">@ErrorText</a>
+            </div>
+            <div class="basicDiv @animClass" style="display: @block4">
+                <a style="color: black;"><h5>Select group that you want to teach in Class 9-10</h5></a><br>
+                <a class="@buttonS" @onclick="@buttonClikedS">Science</a>
+                <a class="@buttonC" @onclick="@buttonClikedC">Commerce</a>
+                <a class="@buttonA" @onclick="@buttonClikedA">Arts</a>
+            </div>
+            <div class="basicDiv @animClass" style="display: @block5">
+                <a style="color: black;"><h5>You can take upto @sn subjects from this segment</h5></a><br>
+                <a class="@buttonSS1" @onclick="@buttonClikedSS1">@SSCSubject1</a>
+                <a class="@buttonSS2" @onclick="@buttonClikedSS2">@SSCSubject2</a>
+                <a class="@buttonSS3" @onclick="@buttonClikedSS3">@SSCSubject3</a>
+                <a class="@buttonSS4" @onclick="@buttonClikedSS4">@SSCSubject4</a> <br />
+                <a class="@buttonSS5" @onclick="@buttonClikedSS5">@SSCSubject5</a>
+                <a class="@buttonSS6" @onclick="@buttonClikedSS6">@SSCSubject6</a>
+                <a class="@buttonSS7" @onclick="@buttonClikedSS7">@SSCSubject7</a>
+                <a class="@buttonSS8" @onclick="@buttonClikedSS8">@SSCSubject8</a> <br />
+                <a class="ErrorText">@ErrorText</a>
+            </div>
+            <div class="basicDiv @animClass" style="display: @block6">
+                <a style="color: black;"><h5>Select group that you want to teach in Class 11-12</h5></a><br>
+                <a class="@buttonS" @onclick="@buttonClikedS">Science</a>
+                <a class="@buttonC" @onclick="@buttonClikedC">Commerce</a>
+                <a class="@buttonA" @onclick="@buttonClikedA">Arts</a>
+            </div>
+            <div class="basicDiv @animClass" style="display: @block7; color: black; font-size: 20px">
+                Thank you for registration. <br />
+                We will notify you after we review your registration form.
+            </div>
+
+
+            <a style="color: black">@clickCounter @Name @Age @Ins @Pn @mail @username @pass  @SSCSubjectChoice @HSCSubjectChoice   </a>
+            <div style="display: @btnDisplay">
+                <span class="arrow" @onclick="@BlockGoLB" style="opacity: @leftArrow; margin:10px; display: inline-block; transform: rotateY(180deg); "></span>
+                <span class="arrow" @onclick="@BlockGo" style="opacity: @rightArrow; display:  inline-block ;  margin:10px;"></span>
             </div>
 
         </div>
 
-
-
     </div>
 
 
+
+</div>
+
+
 @code{
-    string StartAnim1stBlock, EndtAnim1stBlock,picClass, animClass;
-    Timer timer,picTimer, blockTime;
-    string picscr , block1and2, block3,block4,block5, block6, block7,btnDisplay;
-    int op, leftArrow,checkedBlock,rightArrow,sn;
+    string StartAnim1stBlock, EndtAnim1stBlock, picClass, animClass;
+    Timer timer, picTimer, blockTime;
+    string picscr, block1and2, block3, block4, block5, block6, block7, btnDisplay;
+    int op, leftArrow, checkedBlock, rightArrow, sn;
     string inL1, inL2, inL3, inL4;
     string in1, in2, in3, in4;
     int buttonClickCount;
@@ -93,8 +98,8 @@
     string fadeInTextLB = "fade-inText-fwdLB", fadeOutTextLB = "fade-out-bckLB";
     string buttonClassSix, buttonClassNine, buttonClassEleven, buttonS, buttonC, buttonA, buttonSS1, buttonSS2, buttonSS3, buttonSS4, buttonSS5, buttonSS6, buttonSS7, buttonSS8;
 
-    int jsc, ssc, hsc,jCl,sCl,hCl;
-    int clickCounter,SSCGroupChoice,HSCGroupChoice;
+    int jsc, ssc, hsc, jCl, sCl, hCl;
+    int clickCounter, SSCGroupChoice, HSCGroupChoice;
     string SSCSubjectChoice, HSCSubjectChoice, ClassChoice;
     bool onlyEleven;
     protected override async Task OnInitializedAsync()
@@ -185,10 +190,10 @@
 
     public void BlockGo()
     {
-        if(clickCounter == 4)
+        if (clickCounter == 4)
         {
             int i = 0;
-            if(SSCGroupChoice == 1)
+            if (SSCGroupChoice == 1)
             {
                 if (buttonSS1 == "semi-transparent-buttonClicked")
                 {
@@ -271,7 +276,7 @@
                 }
                 else
                 {
-                    ErrorText = "Take any subject";
+                    ErrorText = "You can take 3 subjects";
                 }
             }
             if (SSCGroupChoice == 3)
@@ -309,10 +314,10 @@
             }
 
         }
-        if(clickCounter == 2)
+        if (clickCounter == 2)
         {
             int i = 0;
-            if(buttonClassSix == "semi-transparent-buttonClicked")
+            if (buttonClassSix == "semi-transparent-buttonClicked")
             {
                 i++;
                 ClassChoice = "s";
@@ -327,7 +332,7 @@
                 i++;
                 ClassChoice = ClassChoice + "e";
             }
-            if(i > 0)
+            if (i > 0)
             {
                 RightArrowTimerStart();
                 ErrorText = "";
@@ -337,9 +342,13 @@
                 ErrorText = "Chose a class";
             }
         }
-        if( clickCounter == 6 || clickCounter == 7)
+        if (clickCounter == 6)
         {
-            RightArrowTimerStart();
+            bool ok = saveHSCSubject();
+            if (ok == true)
+            {
+                RightArrowTimerStart();
+            }
         }
         if (clickCounter < 2)
         {
@@ -352,7 +361,7 @@
         }
     }
 
-    public void RightArrowTimerStart ()
+    public void RightArrowTimerStart()
     {
         clickCounter++;
         if (clickCounter > checkedBlock)
@@ -390,7 +399,7 @@
 
     private async void blockCounter(object sender, ElapsedEventArgs e)
     {
-        if(clickCounter == 2 || clickCounter == 3 || clickCounter == 4 || clickCounter == 6 || clickCounter == 7)
+        if (clickCounter == 2 || clickCounter == 3 || clickCounter == 4 || clickCounter == 6 || clickCounter == 7)
         {
             chnageBlock();
             animClass = fadeInTextRB;
@@ -412,7 +421,7 @@
                 StateHasChanged();
             });
         }
-        if(clickCounter == 5)
+        if (clickCounter == 5)
         {
             chnageBlock();
             animClass = fadeInTextRB;
@@ -422,7 +431,7 @@
                 StateHasChanged();
             });
         }
-        if(clickCounter == 1)
+        if (clickCounter == 1)
         {
             changeInputPlaceholderAndPlaceInfo();
             animClass = fadeInTextRB;
@@ -453,7 +462,7 @@
             changeInputPlaceholderAndPlaceInfo();
 
         }
-        if(clickCounter == 1 || clickCounter == 2 || clickCounter == 3 || clickCounter == 4 || clickCounter == 5 || clickCounter == 6)
+        if (clickCounter == 1 || clickCounter == 2 || clickCounter == 3 || clickCounter == 4 || clickCounter == 5 || clickCounter == 6)
         {
             chnageBlock();
         }
@@ -486,7 +495,16 @@
             inL4 = "Confirm Password";
         }
     }
+    bool IsDigitsOnly(string str)
+    {
+        foreach (char c in str)
+        {
+            if (c < '0' || c > '9')
+                return false;
+        }
 
+        return true;
+    }
     public int checkInfo()
     {
         int chk = 0;
@@ -496,21 +514,68 @@
             {
                 chk = 1;
             }
-            if(clickCounter == 1)
+            if (clickCounter == 1)
             {
-                if(in3 != in4)
+                if (in3 != in4)
                 {
                     chk = 2;
                 }
             }
+            if(clickCounter == 0)
+            {
+                if(!IsDigitsOnly(in2))
+                {
+                    chk = 3;
+                }
+            }
+            if (clickCounter == 0)
+            {
+                if (!IsDigitsOnly(in4))
+                {
+                    chk = 4;
+                }
+            }
+            if (clickCounter == 0)
+            {
+                if (IsDigitsOnly(in4))
+                {
+                    if(in4.Length != 11)
+                    {
+                        chk = 6;
+                    }
+                }
+            }
+            if (clickCounter == 1)
+            {
+                if(in3.Length < 6)
+                {
+                    chk = 5;
+                }
+            }
         }
-        if(chk == 1)
+        if (chk == 1)
         {
             ErrorText = "Empty Box is not allowed";
         }
-        else if(chk == 2)
+        else if (chk == 2)
         {
             ErrorText = "Password doesn't match";
+        }
+        else if(chk == 3)
+        {
+            ErrorText = "Age will only contain number. Ex: 20";
+        }
+        else if (chk == 4)
+        {
+            ErrorText = "Phone Number will only contain number. Ex: 01XXXXXXXXX";
+        }
+        else if (chk == 5)
+        {
+            ErrorText = "Password must contain at least 6 character";
+        }
+        else if (chk == 6)
+        {
+            ErrorText = "Enter valid phone number.";
         }
         else
         {
@@ -520,11 +585,11 @@
         return chk;
     }
 
-    public void chnageBlock ()
+    public void chnageBlock()
     {
         if (clickCounter == 0 || clickCounter == 1)
         {
-            block3 =  "none";
+            block3 = "none";
             block1and2 = "block";
         }
         if (clickCounter == 2)
@@ -536,9 +601,9 @@
         if (clickCounter == 3)
         {
             bool g = true;
-            for(int i = 0; i < ClassChoice.Length; i++)
+            for (int i = 0; i < ClassChoice.Length; i++)
             {
-                if(ClassChoice[i] == 'n' || ClassChoice[i] == 'e')
+                if (ClassChoice[i] == 'n' || ClassChoice[i] == 'e')
                 {
                     g = true;
                 }
@@ -547,7 +612,7 @@
                     g = false;
                 }
             }
-            if(g == true)
+            if (g == true)
             {
                 bool s = false, h = false;
                 for (int i = 0; i < ClassChoice.Length; i++)
@@ -561,7 +626,7 @@
                         h = true;
                     }
                 }
-                if(s == true)
+                if (s == true)
                 {
                     SSCSubjectChoice = "";
                     block3 = "none";
@@ -580,7 +645,7 @@
                         buttonA = "semi-transparent-buttonClicked";
                     }
                 }
-                else if(h == true)
+                else if (h == true)
                 {
                     block3 = "none";
                     block6 = "block";
@@ -601,7 +666,7 @@
         }
         if (clickCounter == 4)
         {
-            if(onlyEleven == false)
+            if (onlyEleven == false)
             {
                 sn = 3;
                 SSCSubject5 = "";
@@ -704,7 +769,7 @@
                     g = false;
                 }
             }
-            if(g == true)
+            if (g == true)
             {
                 block5 = "none";
                 block6 = "block";
@@ -727,17 +792,17 @@
         }
         if (clickCounter == 7)
         {
-            saveHSCSubject();
             block6 = "none";
             block7 = "block";
             block5 = "none";
             btnDisplay = "none";
+            trasferInfoToDatabse();
         }
     }
 
     public void SaveInfo()
     {
-        if(clickCounter == 0)
+        if (clickCounter == 0)
         {
             Name = in1;
             Age = in2;
@@ -774,7 +839,7 @@
     public void buttonClikedSix()
     {
         jsc++;
-        if(jsc % 2 != 0)
+        if (jsc % 2 != 0)
         {
             buttonClassSix = "semi-transparent-buttonClicked";
             jCl = 1;
@@ -818,7 +883,7 @@
 
 
     //Page 4
-    public void buttonClikedS ()
+    public void buttonClikedS()
     {
         if (buttonS == "semi-transparent-button" && clickCounter == 3)
         {
@@ -914,7 +979,7 @@
             clickCounter++;
             checkedBlock++;
         }
-        else if(buttonC == "semi-transparent-button" && clickCounter == 5)
+        else if (buttonC == "semi-transparent-button" && clickCounter == 5)
         {
             sn = 3;
             buttonC = "semi-transparent-buttonClicked";
@@ -978,7 +1043,7 @@
             clickCounter++;
             checkedBlock++;
         }
-        else if(buttonA == "semi-transparent-button" && clickCounter == 5)
+        else if (buttonA == "semi-transparent-button" && clickCounter == 5)
         {
             sn = 2;
             buttonA = "semi-transparent-buttonClicked";
@@ -1110,41 +1175,60 @@
         }
     }
 
-    public void saveHSCSubject()
+    public bool saveHSCSubject()
     {
-        if(HSCGroupChoice == 1)
+        int counter = 0;
+        bool ok = true;
+        if (HSCGroupChoice == 1)
         {
-            if(buttonSS1 == "semi-transparent-buttonClicked")
+            if (buttonSS1 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = "P1";
+                counter++;
             }
             if (buttonSS2 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "P2";
+                counter++;
             }
             if (buttonSS3 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "C1";
+                counter++;
             }
             if (buttonSS4 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "C2";
+                counter++;
             }
             if (buttonSS5 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "B1";
+                counter++;
             }
             if (buttonSS6 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "B2";
+                counter++;
             }
             if (buttonSS7 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "GM";
+                counter++;
             }
             if (buttonSS8 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "HH";
+                counter++;
+            }
+            if (counter > 6)
+            {
+                ErrorText = "You can not take more that 6 subjects";
+                ok = false;
+            }
+            else
+            {
+                ok = true;
             }
 
         }
@@ -1153,18 +1237,31 @@
             if (buttonSS1 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = "E";
+                counter++;
             }
             if (buttonSS2 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "F";
+                counter++;
             }
             if (buttonSS3 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "B";
+                counter++;
             }
             if (buttonSS4 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "C";
+                counter++;
+            }
+            if (counter > 3)
+            {
+                ErrorText = "You can not take more that 3 subjects";
+                ok = false;
+            }
+            else
+            {
+                ok = true;
             }
         }
         if (HSCGroupChoice == 3)
@@ -1172,11 +1269,36 @@
             if (buttonSS1 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = "L";
+                counter++;
             }
             if (buttonSS2 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = HSCSubjectChoice + "G";
+                counter++;
             }
+
         }
+        return ok;
+    }
+
+
+    public async void trasferInfoToDatabse()
+    {
+        string url = "https://api.shikkhanobish.com/api/Master/SetTeacherInfo";
+        HttpClient client = new HttpClient();
+        string jsonData = JsonConvert.SerializeObject(new { Name = Name, Age = Age, Institution = Ins, PhoneNumber = Pn, Mail = mail, Username = username, Password = pass, SubjectInfo = (SSCSubjectChoice + " " + HSCSubjectChoice), });
+        StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+        string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+        var r = JsonConvert.DeserializeObject<Response>(result);
+        if(r.Status == 0)
+        {
+            ErrorText = r.Massage;
+        }
+        else
+        {
+            ErrorText = r.Status + " prolbem  " + r.Massage;
+        }
+
     }
 }
