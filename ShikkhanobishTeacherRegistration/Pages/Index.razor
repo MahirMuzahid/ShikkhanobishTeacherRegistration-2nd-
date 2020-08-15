@@ -8,6 +8,7 @@
 <div class="gradientBAckground">
     <div style="flex:auto">
         <div class="@StartAnim1stBlock">
+            <a href="https://shikkhanobish.com/"> <h6>Back to home page</h6></a>
             <img class="@picClass" src="Logo.png" style="opacity: @op;" />
             <a style="color: black">Welcome To Shikkhanobish Teacher Registration</a><br>
             <div class="basicDiv @animClass" style="opacity: @op; display: @block1and2;">
@@ -69,14 +70,15 @@
             </div>
 
 
-            <a style="color: black">@clickCounter @Name @Age @Ins @Pn @mail @username @pass  @SSCSubjectChoice @HSCSubjectChoice   </a>
+
             <div style="display: @btnDisplay">
                 <span class="arrow" @onclick="@BlockGoLB" style="opacity: @leftArrow; margin:10px; display: inline-block; transform: rotateY(180deg); "></span>
                 <span class="arrow" @onclick="@BlockGo" style="opacity: @rightArrow; display:  inline-block ;  margin:10px;"></span>
+
             </div>
 
         </div>
-
+        
     </div>
 
 
@@ -102,6 +104,8 @@
     int clickCounter, SSCGroupChoice, HSCGroupChoice;
     string SSCSubjectChoice, HSCSubjectChoice, ClassChoice;
     bool onlyEleven;
+    string sscGroupChoice, hscGroupChoice;
+    int existun, existpn;
     protected override async Task OnInitializedAsync()
     {
         StartAnim1stBlock = "text-focus-in";
@@ -195,6 +199,7 @@
             int i = 0;
             if (SSCGroupChoice == 1)
             {
+                sscGroupChoice = "Science";
                 if (buttonSS1 == "semi-transparent-buttonClicked")
                 {
                     i++;
@@ -238,6 +243,7 @@
             }
             if (SSCGroupChoice == 2)
             {
+                sscGroupChoice = "Cmrc";
                 if (buttonSS1 == "semi-transparent-buttonClicked")
                 {
                     i++;
@@ -281,6 +287,7 @@
             }
             if (SSCGroupChoice == 3)
             {
+                sscGroupChoice = "Arts";
                 if (buttonSS1 == "semi-transparent-buttonClicked")
                 {
                     i++;
@@ -552,6 +559,7 @@
                     chk = 5;
                 }
             }
+
         }
         if (chk == 1)
         {
@@ -579,7 +587,29 @@
         }
         else
         {
-            ErrorText = "";
+            if ( clickCounter == 0 )
+            {
+                getUsernameInfo ( "" , in4 );
+                if ( existun == 1 )
+                {
+                    chk = 7;
+                    ErrorText = "Phonenumber already exists";
+                }
+            }
+            if ( clickCounter == 1 )
+            {
+                getUsernameInfo ( in2 , "1" );
+                if ( existun == 1 )
+                {
+                    chk = 8;
+                    ErrorText = "Username already exists";
+                }
+            }
+            else
+            {
+                ErrorText = "";
+            }
+
         }
 
         return chk;
@@ -587,6 +617,7 @@
 
     public void chnageBlock()
     {
+        ErrorText = "";
         if (clickCounter == 0 || clickCounter == 1)
         {
             block3 = "none";
@@ -1181,6 +1212,7 @@
         bool ok = true;
         if (HSCGroupChoice == 1)
         {
+            hscGroupChoice = "Science";
             if (buttonSS1 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = "P1";
@@ -1234,6 +1266,7 @@
         }
         if (HSCGroupChoice == 2)
         {
+            hscGroupChoice = "Cmrc";
             if (buttonSS1 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = "E";
@@ -1266,6 +1299,7 @@
         }
         if (HSCGroupChoice == 3)
         {
+            hscGroupChoice = "Arts";
             if (buttonSS1 == "semi-transparent-buttonClicked")
             {
                 HSCSubjectChoice = "L";
@@ -1286,7 +1320,7 @@
     {
         string url = "https://api.shikkhanobish.com/api/Master/SetTeacherInfo";
         HttpClient client = new HttpClient();
-        string jsonData = JsonConvert.SerializeObject(new { Name = Name, Age = Age, Institution = Ins, PhoneNumber = Pn, Mail = mail, Username = username, Password = pass, SubjectInfo = (SSCSubjectChoice + " " + HSCSubjectChoice), });
+        string jsonData = JsonConvert.SerializeObject(new { Name = Name, Age = Age, Institution = Ins, PhoneNumber = Pn, Mail = mail, Username = username, Password = pass, SubjectInfo =  ( sscGroupChoice +  " "+SSCSubjectChoice + " " + hscGroupChoice + " " + HSCSubjectChoice), });
         StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
         string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
@@ -1299,6 +1333,26 @@
         {
             ErrorText = r.Status + " prolbem  " + r.Massage;
         }
+    }
 
+    public async void getUsernameInfo(string un, string pn)
+    {
+        string url = "https://api.shikkhanobish.com/api/Master/GetTeacherInfo";
+        HttpClient client = new HttpClient ();
+        string jsonData = JsonConvert.SerializeObject ( new { Username = un , PhoneNumber = pn } );
+        StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+        HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+        string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+        var name = JsonConvert.DeserializeObject<TeacherInfo> ( result );
+        if ( name.Name != null )
+        {
+            existpn = 1;
+            existun = 1;
+        }
+        else
+        {
+            existpn = 0;
+            existun = 0;
+        }
     }
 }
